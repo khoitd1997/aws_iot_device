@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+#include "aws_iot_fmt.hpp"
 #include "device_config.hpp"
 #include "event_handler_util.hpp"
 
@@ -9,9 +10,6 @@
 #include "mgos.h"
 #include "mgos_adc.h"
 #include "mgos_mqtt.h"
-
-#define TEMP_SENSOR_FMT "{%Q: %Q, %Q: %Q, %Q: {%Q: %.1f, %Q: %Q}}"
-#define TEMP_SENSOR_TOTAL_ARG 9
 
 #define TMP36_COEFF 3300 / 1024
 

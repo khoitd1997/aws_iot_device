@@ -13,7 +13,7 @@
 #define PC_BUTTON_PIN 4  // D2
 
 // source: https://forum.mongoose-os.com/discussion/1218/unable-to-read-adc-value
-#define ANALOG_PIN 17
+#define ANALOG_PIN 0
 
 /****************Device Handler Config*****************/
 
