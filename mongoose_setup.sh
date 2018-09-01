@@ -15,11 +15,12 @@ set -x
 #----------BUILD AND FLASH SECTION-------------------
 cd ${build_dir}
 mos build --arch ${arch} --clean
-mos flash
+mos flash --timeout 10m
 mos wifi ${guest_wifi_ssid} ${gues_wifi_password}
 
 #----------CONFIGURE SECTION-------------------------
 
+sleep 2 # fix for esp32
 mos config-set device.password=${device_password} \
-mqtt.server=${mqtt_server}
+mqtt.server=${mqtt_server} --timeout 10m
 mos console

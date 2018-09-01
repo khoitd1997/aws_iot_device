@@ -4,8 +4,8 @@
 #include "parent_handler.hpp"
 #include "power_ctrl_handler.hpp"
 
-#define SUBSCRIBE_TOPIC "/pcReq"
-#define PUBLISH_TOPIC "/pcRes"
+#define SUBSCRIBE_TOPIC "/bedRoomLightReq"
+#define PUBLISH_TOPIC "/bedRoomLightRes"
 
 /****************Device Handler Config*****************/
 

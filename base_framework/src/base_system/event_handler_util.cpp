@@ -25,7 +25,12 @@ HandlerError create_error_message(const HandlerError error,
   uint8_t errorDesc;
   for (errorDesc = 0; errorDesc < (sizeof(errDescript) / sizeof(errDescript[0])); ++errorDesc) {
     if (error == (errDescript[errorDesc]).errorCode) {
-      strcpy(errorMessage, (errDescript[errorDesc]).errorMessage);
+      strcat(errorMessage, "{");
+      strcat(errorMessage, "\"");
+      strcat(errorMessage, "error\": \"");
+      strcat(errorMessage, (errDescript[errorDesc]).errorMessage);
+      strcat(errorMessage, "\"");
+      strcat(errorMessage, "}");
       break;
     }
   }
@@ -53,7 +58,6 @@ HandlerError read_pin(const uint8_t pinNum, uint8_t* pinState) {
 }
 
 HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nameSpace) {
-  assert(commandInfo);
   assert(message);
 
   char* tempName      = NULL;
