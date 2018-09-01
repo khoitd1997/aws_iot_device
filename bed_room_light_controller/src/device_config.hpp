@@ -7,6 +7,14 @@
 #define SUBSCRIBE_TOPIC "/bedRoomLightReq"
 #define PUBLISH_TOPIC "/bedRoomLightRes"
 
+/****************Pin Config*****************************/
+#define LIGHT_CTRL_PIN 21  // marked P21 on the board
+
+// source: https://forum.mongoose-os.com/discussion/1218/unable-to-read-adc-value
+#define ANALOG_PIN 17
+
+#ifdef __cplusplus
+
 /****************Device Handler Config*****************/
 
 /**

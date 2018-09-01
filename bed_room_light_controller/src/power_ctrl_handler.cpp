@@ -3,7 +3,7 @@
 #include "event_handler_util.hpp"
 
 #include "aws_iot_fmt.hpp"
-#include "esp32_specific.h"
+#include "device_config.hpp"
 
 #include <stdarg.h>
 #include <cstring>

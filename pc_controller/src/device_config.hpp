@@ -1,13 +1,19 @@
 #ifndef _HANDLER_CONFIG_HPP
 #define _HANDLER_CONFIG_HPP
 
-#include "esp8266_specific.h"
 #include "parent_handler.hpp"
 #include "power_ctrl_handler.hpp"
 #include "temp_sensor_handler.hpp"
 
 #define SUBSCRIBE_TOPIC "/pcReq"
 #define PUBLISH_TOPIC "/pcRes"
+
+/****************Pinout Config**************************/
+#define PC_CTRL_PIN 5    // D1
+#define PC_BUTTON_PIN 4  // D2
+
+// source: https://forum.mongoose-os.com/discussion/1218/unable-to-read-adc-value
+#define ANALOG_PIN 17
 
 /****************Device Handler Config*****************/
 

@@ -3,7 +3,7 @@
 #include "aws_iot_fmt.hpp"
 #include "event_handler_util.hpp"
 
-#include "esp8266_specific.h"
+#include "device_config.hpp"
 
 #include <stdarg.h>
 #include <cstring>

@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-#include "esp8266_specific.h"
+#include "device_config.hpp"
 #include "event_handler_util.hpp"
 
 #include "frozen.h"
