@@ -16,6 +16,13 @@
 #define TOTAL_HANDLER 1
 
 /**
+ * @brief empty since we don't use any interrupts
+ *
+ */
+#define REGISTER_INTERRUPT() \
+  {}
+
+/**
  * @brief change this function to customize the list of handler
  *
  */

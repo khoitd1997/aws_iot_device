@@ -31,9 +31,8 @@ filesystem:
 
 # how to set these things are in the mos.yml file of the library
 config_schema:
-  # - ["mqtt.pub", "s", "/pcRes", {title: "Publish topic"}]
-  # - ["mqtt.sub", "s", "/pcReq", {title: "Subscribe topic"}]
-  - ["device.id", "pc_controller"]
+  - ["device.id", "pc_controller"] # CHANGE
+
   - ["mqtt.ssl_cert", "s", "certificate.pem.crt", {title: "Client certificate to present to the server"}]
   - ["mqtt.ssl_key", "s", "private.pem.key", {title: "Private key corresponding to the certificate"}]
   - ["mqtt.ssl_ca_cert", "s", "ca_cert.pem", {title: "Verify server certificate using this CA bundle"}]

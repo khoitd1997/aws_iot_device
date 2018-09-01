@@ -1,6 +1,7 @@
 #ifndef _HANDLER_CONFIG_HPP
 #define _HANDLER_CONFIG_HPP
 
+#include "esp8266_specific.h"
 #include "parent_handler.hpp"
 #include "power_ctrl_handler.hpp"
 #include "temp_sensor_handler.hpp"
@@ -15,6 +16,21 @@
  *
  */
 #define TOTAL_HANDLER 2
+
+/**
+ * @brief Reigiter pc controller interrupt
+ *
+ * Register a button interrupt to actuate on pc's case power button
+ */
+#define REGISTER_INTERRUPT()                                               \
+  do {                                                                     \
+    mgos_gpio_set_button_handler(PC_BUTTON_PIN,                            \
+                                 MGOS_GPIO_PULL_UP,                        \
+                                 MGOS_GPIO_INT_EDGE_NEG,                   \
+                                 BUTTON_DEBOUNCE_MS,                       \
+                                 PowerCtrlHandler::buttonInterruptHandler, \
+                                 NULL);                                    \
+  } while (0)
 
 /**
  * @brief change this function to customize the list of handler

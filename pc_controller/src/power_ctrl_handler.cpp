@@ -14,19 +14,9 @@
 #include "mgos_mqtt.h"
 #include "mgos_system.h"
 
-#define SWITCH_ON_STATE 1
-#define BUTTON_DEBOUNCE_MS 50
-#define SWITCH_DELAY_MS 150
-
 bool PowerCtrlHandler::_pcIsOn = false;
 
 PowerCtrlHandler::PowerCtrlHandler(void) {
-  mgos_gpio_set_button_handler(PC_BUTTON_PIN,
-                               MGOS_GPIO_PULL_UP,
-                               MGOS_GPIO_INT_EDGE_NEG,
-                               BUTTON_DEBOUNCE_MS,
-                               PowerCtrlHandler::buttonInterruptHandler,
-                               NULL);
   strcpy(ParentHandler::_nameSpace, "Alexa.PowerController");
 }
 
@@ -38,9 +28,9 @@ HandlerError PowerCtrlHandler::actuatePcChange(void) {
 }
 
 void PowerCtrlHandler::buttonInterruptHandler(int pin, void* arg) {
-  LOG(LL_INFO, ("Button pressed"));
+  // LOG(LL_INFO, ("Button pressed"));
   if (PC_BUTTON_PIN == pin) {
-    LOG(LL_INFO, ("Current PC status: %d", PowerCtrlHandler::getPcStatus()));
+    // LOG(LL_INFO, ("Current PC status: %d", PowerCtrlHandler::getPcStatus()));
     PowerCtrlHandler::setPcStatus(!PowerCtrlHandler::getPcStatus());
     LOG(LL_INFO, ("Changed PC status: %d", PowerCtrlHandler::getPcStatus()));
     PowerCtrlHandler::actuatePcChange();

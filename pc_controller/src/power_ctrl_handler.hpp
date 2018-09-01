@@ -9,6 +9,9 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+#define SWITCH_ON_STATE 1
+#define BUTTON_DEBOUNCE_MS 50
+#define SWITCH_DELAY_MS 150
 class PowerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,

@@ -95,30 +95,30 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection *mgCon,
   LOG(LL_INFO, ("got command: %.*s", (int)payload->len, payload->p));
 
   if (NULL == _handlerList[0]) {
-    LOG(LL_INFO, ("Empty handler list"));
+    // LOG(LL_INFO, ("Empty handler list"));
   } else {
-    LOG(LL_INFO, ("Non-empty handler list"));
+    // LOG(LL_INFO, ("Non-empty handler list"));
   }
 
   char commandName[MAX_COMMAND_LEN]     = "";
   char nameSpaceName[MAX_NAMESPACE_LEN] = "";
   HANDLER_TRY_FUNC(getCommandInfo(payload, commandName, nameSpaceName));
-  LOG(LL_INFO, ("Done Parsing Command name: %s, namespace: %s", commandName, nameSpaceName));
+  // LOG(LL_INFO, ("Done Parsing Command name: %s, namespace: %s", commandName, nameSpaceName));
 
   HandlerError handlerError = HANDLER_NO_ERR;
 
   if (HANDLER_NO_ERR == handlerError) {
     if (0 != strcmp(commandName, "ReportState")) {
-      LOG(LL_INFO, ("Received a non report state command"));
+      // LOG(LL_INFO, ("Received a non report state command"));
       int loopIndex;
       for (loopIndex = 0; loopIndex < TOTAL_HANDLER; ++loopIndex) {
-        LOG(LL_INFO, ("Looping through handler list"));
+        // LOG(LL_INFO, ("Looping through handler list"));
         if (NULL != _handlerList[loopIndex]) {
-          LOG(LL_INFO,
-              ("Checking handler with namespace %s", (_handlerList[loopIndex])->getNameSpace()));
+          // LOG(LL_INFO,
+          //     ("Checking handler with namespace %s", (_handlerList[loopIndex])->getNameSpace()));
 
           if (true == (_handlerList[loopIndex])->canHandleRequest(nameSpaceName)) {
-            LOG(LL_INFO, ("Found Supported Handler"));
+            // LOG(LL_INFO, ("Found Supported Handler"));
             printStateReportOpen(jsonBuf);
             handlerError =
                 (_handlerList[loopIndex])->handleRequest(mgCon, payload, commandName, jsonBuf);
@@ -148,6 +148,7 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection *mgCon,
   // else {
   //   pub(mgCon, "%s", _pubTopic, jsonBuf);
   // }
+  (void)mgCon;
 }
 
 const char *MasterAwsHandler::getSubTopic() { return _subTopic; }

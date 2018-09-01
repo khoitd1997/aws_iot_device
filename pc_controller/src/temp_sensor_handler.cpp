@@ -44,7 +44,7 @@ HandlerError TempSensorHandler::handleReport(char* stateReport) {
                "scale",
                "CELSIUS");
 
-  LOG(LL_INFO, ("The temperature is %f", volt));
+  // LOG(LL_INFO, ("The temperature is %f", volt));
   LOG(LL_INFO, ("The temp sensor buf is %s", stateReport));
 
   return HANDLER_NO_ERR;

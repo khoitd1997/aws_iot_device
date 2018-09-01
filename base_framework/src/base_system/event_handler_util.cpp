@@ -45,14 +45,14 @@ HandlerError create_error_message(const HandlerError error,
 }
 
 HandlerError write_pin(const uint8_t pinNum, const uint8_t pinState) {
-  LOG(LL_INFO, ("Writing to pins %d with state %d", pinNum, pinState));
+  // LOG(LL_INFO, ("Writing to pins %d with state %d", pinNum, pinState));
   if (false == mgos_gpio_set_mode(pinNum, MGOS_GPIO_MODE_OUTPUT)) { return MQTT_ERR_GPIO; }
   mgos_gpio_write(pinNum, (pinState > 0 ? true : false));
   return HANDLER_NO_ERR;
 }
 
 HandlerError read_pin(const uint8_t pinNum, uint8_t* pinState) {
-  LOG(LL_INFO, ("Reading Pins %d", pinNum));
+  // LOG(LL_INFO, ("Reading Pins %d", pinNum));
   *pinState = (mgos_gpio_read(pinNum) ? 1 : 0);
   return HANDLER_NO_ERR;
 }

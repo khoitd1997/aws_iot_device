@@ -17,9 +17,11 @@
 
 #include "mgos.h"
 
+#include "device_config.hpp"
 #include "master_handler.hpp"
 
 enum mgos_app_init_result mgos_app_init(void) {
+  REGISTER_INTERRUPT();
   mgos_mqtt_add_global_handler(MasterAwsHandler::handleAllReq, NULL);
   return MGOS_APP_INIT_SUCCESS;
 }
