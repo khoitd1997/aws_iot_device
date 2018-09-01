@@ -1,5 +1,6 @@
 #include "power_ctrl_handler.hpp"
 
+#include "aws_iot_fmt.hpp"
 #include "event_handler_util.hpp"
 
 #include "esp8266_specific.h"
@@ -12,9 +13,6 @@
 #include "mgos_gpio.h"
 #include "mgos_mqtt.h"
 #include "mgos_system.h"
-
-#define PWR_CTRL_FMT "{%Q: %Q, %Q: %Q, %Q: %Q}"
-#define PWR_CTRL_TOTAL_ARG 6
 
 #define SWITCH_ON_STATE 1
 #define BUTTON_DEBOUNCE_MS 50

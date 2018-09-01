@@ -1,10 +1,6 @@
 #ifndef _MASTER_HANDLER_HPP
 #define _MASTER_HANDLER_HPP
 
-#include "parent_handler.hpp"
-#include "power_ctrl_handler.hpp"
-#include "temp_sensor_handler.hpp"
-
 #include "event_handler_util.hpp"
 
 #include "frozen.h"

@@ -3,9 +3,6 @@
 
 #include "device_config.hpp"
 
-#include "power_ctrl_handler.hpp"
-#include "temp_sensor_handler.hpp"
-
 #include "event_handler_util.hpp"
 
 #include "frozen.h"

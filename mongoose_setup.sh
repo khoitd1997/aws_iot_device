@@ -2,7 +2,9 @@
 # used for setting up the dev board with necessary info
 
 #----------BUILD CONFIG VARIABLE SECTION-------------
-build_dir="pc_controller/" # change based on the devices you want to build
+# bed_room_light_controller
+# pc_controller
+build_dir="bed_room_light_controller/" # change based on the devices you want to build
 
 #----------DEPENDENCY SECTION------------------------
 source ${build_dir}/credentials/mongoose_info.sh # get device info
