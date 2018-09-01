@@ -1,7 +1,8 @@
 
 #include "master_handler.hpp"
 
-#include "handler_config.hpp"
+#include "device_config.hpp"
+
 #include "power_ctrl_handler.hpp"
 #include "temp_sensor_handler.hpp"
 
@@ -25,25 +26,18 @@
     }                                                  \
   } while (0)
 
-const char* MasterAwsHandler::_subTopic = "/pcReq";
-const char* MasterAwsHandler::_pubTopic = "/pcRes";
+const char *MasterAwsHandler::_subTopic = SUBSCRIBE_TOPIC;
+const char *MasterAwsHandler::_pubTopic = PUBLISH_TOPIC;
 
 // modify this to add more handler
-MasterAwsHandler::MasterAwsHandler() {
-  for (int loopIndex = 0; loopIndex < TOTAL_HANDLER; ++loopIndex) {
-    _handlerList[loopIndex] = NULL;
-  }
+MasterAwsHandler::MasterAwsHandler() {}
 
-  _handlerList[0] = &_powerCtrlHandler;
-  _handlerList[1] = &_tempSensorHandler;
-}
-
-void MasterAwsHandler::handleAllReq(struct mg_connection* mgCon,
+void MasterAwsHandler::handleAllReq(struct mg_connection *mgCon,
                                     int                   eventType,
-                                    void*                 rawMessage,
-                                    void*                 user_data) {
-  struct mg_mqtt_message* msg                       = (struct mg_mqtt_message*)rawMessage;
-  struct mg_str*          payload                   = &msg->payload;
+                                    void *                rawMessage,
+                                    void *                user_data) {
+  struct mg_mqtt_message *msg                       = (struct mg_mqtt_message *)rawMessage;
+  struct mg_str *         payload                   = &msg->payload;
   char                    jsonBuf[MAX_RESPONSE_LEN] = "";
   static MasterAwsHandler masterHandler;
 
@@ -54,13 +48,12 @@ void MasterAwsHandler::handleAllReq(struct mg_connection* mgCon,
         LOG(LL_ERROR, ("Run 'mgos config-set mqtt.sub=... mqtt.pub=...'"));
         create_error_message(MQTT_CONFIG_NOT_SET, payload, jsonBuf);
       } else {
-        sub(mgCon,
-            "%s",
-            MasterAwsHandler::getSubTopic());  // subscribe to the pre-configured aws path
+        sub(mgCon, "%s", MasterAwsHandler::getSubTopic());
       }
       break;
     case MG_EV_POLL:
-      // this event happens a lot, logging it would cause a lot of garbage in console
+      // this event happens a lot, logging it would cause a lot of garbage in
+      // console
       break;
     case MG_EV_CLOSE:
       LOG(LL_INFO, ("Connection closed"));
@@ -75,7 +68,8 @@ void MasterAwsHandler::handleAllReq(struct mg_connection* mgCon,
 
     case MG_EV_MQTT_PUBLISH:
 
-      mg_mqtt_puback(mgCon, msg->message_id);  // acknowledge the publish from others
+      mg_mqtt_puback(mgCon,
+                     msg->message_id);  // acknowledge the publish from others
       masterHandler.handleAwsRequest(mgCon, payload, jsonBuf);
       break;
 
@@ -89,9 +83,10 @@ void MasterAwsHandler::handleAllReq(struct mg_connection* mgCon,
   (void)user_data;  // used to silence warning
 }
 
-void MasterAwsHandler::handleAwsRequest(struct mg_connection* mgCon,
-                                        struct mg_str*        payload,
-                                        char*                 jsonBuf) {
+void MasterAwsHandler::handleAwsRequest(struct mg_connection *mgCon,
+                                        struct mg_str *       payload,
+                                        char *                jsonBuf) {
+  INITIALIZE_HANDLER()
   for (int loopIndex = 0; loopIndex < TOTAL_HANDLER; ++loopIndex) {
     if (NULL == _handlerList[loopIndex]) {
       create_error_message(HANDLER_NULL, payload, jsonBuf);
@@ -100,7 +95,7 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection* mgCon,
   }
 
   LOG(LL_INFO, ("Received Publication"));
-  LOG(LL_INFO, ("got command: [%.*s]", (int)payload->len, payload->p));
+  LOG(LL_INFO, ("got command: %.*s", (int)payload->len, payload->p));
 
   if (NULL == _handlerList[0]) {
     LOG(LL_INFO, ("Empty handler list"));
@@ -139,6 +134,7 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection* mgCon,
       if (TOTAL_HANDLER == loopIndex) { handlerError = MQTT_ERR_UNKNOWN_COMMAND; }
 
     } else {
+      LOG(LL_INFO, ("Starting state report handling"));
       printStateReportOpen(jsonBuf);
 
       for (int loopIndex = 0; loopIndex < TOTAL_HANDLER; ++loopIndex) {
@@ -157,6 +153,6 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection* mgCon,
   // }
 }
 
-const char* MasterAwsHandler::getSubTopic() { return _subTopic; }
+const char *MasterAwsHandler::getSubTopic() { return _subTopic; }
 
-const char* MasterAwsHandler::getPubTopic() { return _pubTopic; }
+const char *MasterAwsHandler::getPubTopic() { return _pubTopic; }

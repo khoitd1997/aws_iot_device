@@ -12,14 +12,18 @@ tags:
   - c
   - AWS
 
-# List of files / directories with C sources. No slashes at the end of dir names.
+# List of files / directories with sources. No slashes at the end of dir names.
 sources:
-  - src
-  - src/frozen
+  - ../base_framework/src/base_system
+  - ../base_framework/src/parent_handler
+  - src/
+  - ../base_framework/src/frozen
 
 includes:
-  - src
-  - src/frozen
+  - ../base_framework/src/base_system
+  - ../base_framework/src/parent_handler
+  - src/
+  - ../base_framework/src/frozen
 
 # List of dirs. Files from these dirs will be copied to the device filesystem
 filesystem:

@@ -38,6 +38,8 @@ certs/*
 credentials/*
 build/*
 **/build/*
+**/build/*
 **/*.crt
 **/*.key
 **/*.pem
+**/system_info/**
