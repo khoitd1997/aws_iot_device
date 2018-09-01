@@ -1,0 +1,8 @@
+#ifndef _HANDLER_CONFIG_HPP
+#define _HANDLER_CONFIG_HPP
+
+// #define ENABLE_BRIGHTNESS_CTRL
+#define ENABLE_TEMP_SENSOR
+#define ENABLE_PWR_CTRL
+
+#endif

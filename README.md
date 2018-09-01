@@ -1,2 +1,5 @@
-# aws_iot_device
-Aws device skeleton code
+# pc controller
+
+## Overview
+
+Mongoose app used to control the home pc
