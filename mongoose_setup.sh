@@ -4,7 +4,16 @@
 #----------BUILD CONFIG VARIABLE SECTION-------------
 # bed_room_light_controller
 # pc_controller
-build_dir="pc_controller/" # change based on the devices you want to build
+
+
+
+if [ "$#" -ne 1 ]
+then
+  echo "Please supply the device code's folder name"
+  exit 1
+fi
+
+build_dir=$1 # change based on the devices you want to build
 
 #----------DEPENDENCY SECTION------------------------
 source ${build_dir}/credentials/mongoose_info.sh # get device info

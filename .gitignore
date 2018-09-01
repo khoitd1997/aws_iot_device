@@ -43,3 +43,4 @@ build/*
 **/*.key
 **/*.pem
 **/system_info/**
+!sample/*
