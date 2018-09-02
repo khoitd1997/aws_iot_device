@@ -1,3 +1,11 @@
+/**
+ * @brief
+ *
+ * @file temp_sensor_handler.cpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #include "temp_sensor_handler.hpp"
 
 #include <cstring>
@@ -15,6 +23,14 @@
 
 TempSensorHandler::TempSensorHandler() { strcpy(_nameSpace, "Alexa.TemperatureSensor"); }
 
+/**
+ * @brief
+ *
+ * @param mgCon struct representing connection to server
+ * @param message message sent to the mcu by the server
+ * @param response
+ * @return HandlerError
+ */
 HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
                                               struct mg_str*        message,
                                               char*                 commandName,
@@ -25,6 +41,13 @@ HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
   (void)commandName;
   return HANDLER_NO_ERR;
 }
+
+/**
+ * @brief
+ *
+ * @param stateReport
+ * @return HandlerError
+ */
 HandlerError TempSensorHandler::handleReport(char* stateReport) {
   mgos_adc_enable(ANALOG_PIN);
   float volt = (float)mgos_adc_read(ANALOG_PIN);

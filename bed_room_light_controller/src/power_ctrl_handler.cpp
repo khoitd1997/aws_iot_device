@@ -1,3 +1,11 @@
+/**
+ * @brief source files for the power control endpoint handler for the bed room light controller
+ *
+ * @file power_ctrl_handler.cpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #include "power_ctrl_handler.hpp"
 
 #include "event_handler_util.hpp"
@@ -16,10 +24,25 @@
 
 bool PowerCtrlHandler::_lightIsOn = false;
 
+/**
+ * @brief Construct a new Power Ctrl Handler:: Power Ctrl Handler object intialize a power
+ * controller handler for the bed room light controller
+ *
+ */
 PowerCtrlHandler::PowerCtrlHandler(void) {
   strcpy(ParentHandler::_nameSpace, "Alexa.PowerController");
 }
 
+/**
+ * @brief implement the handle request function for the power control endpoint for the bedroom light
+ * controller
+ *
+ * @param mgCon struct representing connection to server
+ * @param message message sent to the mcu by the server
+ * @param commandName
+ * @param response
+ * @return HandlerError
+ */
 HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                              struct mg_str*        message,
                                              char*                 commandName,
@@ -61,9 +84,21 @@ HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief
+ *
+ * @param lightStatus
+ */
 void PowerCtrlHandler::setLightStatus(bool lightStatus) {
   PowerCtrlHandler::_lightIsOn = lightStatus;
 }
+
+/**
+ * @brief
+ *
+ * @return true
+ * @return false
+ */
 bool PowerCtrlHandler::getLightStatus(void) { return PowerCtrlHandler::_lightIsOn; }
 
 HandlerError PowerCtrlHandler::handleReport(char* stateReport) {

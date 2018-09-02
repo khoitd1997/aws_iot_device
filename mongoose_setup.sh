@@ -31,5 +31,5 @@ mos wifi ${guest_wifi_ssid} ${gues_wifi_password}
 
 sleep 2 # fix for esp32
 mos config-set device.password=${device_password} \
-mqtt.server=${mqtt_server} --timeout 10m
-mos console
+mqtt.server=${mqtt_server} --timeout 10m device.id=${device_id}
+mos console # open serial console

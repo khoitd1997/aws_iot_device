@@ -1,3 +1,11 @@
+/**
+ * @brief
+ *
+ * @file power_ctrl_handler.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _POWER_CTRL_HANDLER_HPP
 #define _POWER_CTRL_HANDLER_HPP
 
@@ -12,6 +20,10 @@
 #define SWITCH_ON_STATE 1
 #define BUTTON_DEBOUNCE_MS 50
 #define SWITCH_DELAY_MS 150
+/**
+ * @brief
+ *
+ */
 class PowerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,

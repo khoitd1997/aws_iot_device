@@ -1,3 +1,11 @@
+/**
+ * @brief
+ *
+ * @file device_config.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _HANDLER_CONFIG_HPP
 #define _HANDLER_CONFIG_HPP
 
@@ -12,7 +20,6 @@
 #define PC_CTRL_PIN 5    // D1
 #define PC_BUTTON_PIN 4  // D2
 
-// source: https://forum.mongoose-os.com/discussion/1218/unable-to-read-adc-value
 #define ANALOG_PIN 0
 
 /****************Device Handler Config*****************/

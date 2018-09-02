@@ -1,3 +1,11 @@
+/**
+ * @brief contain class declaration for the ParentHandler class
+ *
+ * @file parent_handler.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _PARENT_HANDLER_HPP
 #define _PARENT_HANDLER_HPP
 
@@ -11,6 +19,11 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief the parent handler class that is the blueprint for other child handlers to implement, it
+ * also defines a couple functions that child handler can use
+ *
+ */
 class ParentHandler {
  public:
   virtual ~ParentHandler(void) {}

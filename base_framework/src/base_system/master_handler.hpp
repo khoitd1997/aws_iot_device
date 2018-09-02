@@ -1,3 +1,11 @@
+/**
+ * @brief header file for master handler class
+ *
+ * @file master_handler.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _MASTER_HANDLER_HPP
 #define _MASTER_HANDLER_HPP
 
@@ -7,10 +15,20 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief Maximum characters that the payload received by the mqtt will have
+ */
 #define MAX_PAYLOAD_SIZE 150
+/**
+ * @brief Maximum length in character of the response
+ */
 #define MAX_RESPONSE_LEN 1500
-/* Error Message Area */
 
+/**
+ * @brief the Master handler class responsible for triaging requests and handle the common
+ * functionalities of all requests
+ *
+ */
 class MasterAwsHandler {
  public:
   MasterAwsHandler();

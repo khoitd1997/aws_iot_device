@@ -1,3 +1,11 @@
+/**
+ * @brief header file for mqtt functionalities
+ *
+ * @file mqtt.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _MQTT_UTIL_H_
 #define _MQTT_UTIL_H_
 

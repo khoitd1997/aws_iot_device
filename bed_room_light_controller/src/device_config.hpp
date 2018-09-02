@@ -1,3 +1,11 @@
+/**
+ * @brief file storing the config for the bed room light controller
+ *
+ * @file device_config.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _HANDLER_CONFIG_HPP
 #define _HANDLER_CONFIG_HPP
 
@@ -8,31 +16,26 @@
 #define PUBLISH_TOPIC "/bedRoomLightRes"
 
 /****************Pin Config*****************************/
-#define LIGHT_CTRL_PIN 21  // marked P21 on the board
-
-// source: https://forum.mongoose-os.com/discussion/1218/unable-to-read-adc-value
-#define ANALOG_PIN 17
-
-#ifdef __cplusplus
-
-/****************Device Handler Config*****************/
 
 /**
+ * @brief pins used for controlling the relay to turn on/off the light
+ */
+#define LIGHT_CTRL_PIN 21  // marked P21 on the board
+
+/****************Device Handler Config*****************/
+/**
  * @brief change this if you use more or less handler
- *
  */
 #define TOTAL_HANDLER 1
 
 /**
  * @brief empty since we don't use any interrupts
- *
  */
 #define REGISTER_INTERRUPT() \
   {}
 
 /**
  * @brief change this function to customize the list of handler
- *
  */
 #define INITIALIZE_HANDLER()             \
   static PowerCtrlHandler pwrController; \

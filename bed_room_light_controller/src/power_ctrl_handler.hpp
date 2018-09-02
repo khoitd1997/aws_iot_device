@@ -1,3 +1,11 @@
+/**
+ * @brief
+ *
+ * @file power_ctrl_handler.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _POWER_CTRL_HANDLER_HPP
 #define _POWER_CTRL_HANDLER_HPP
 
@@ -9,6 +17,10 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief
+ *
+ */
 class PowerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,

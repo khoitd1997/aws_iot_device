@@ -21,6 +21,7 @@ This repo contains the device code running mongoose OS connecting to AWS mqtt se
 - sample/: containing sample files with all senstive info redacted for example purpose
 - system_info/: directory containg a shell script(named system_info.sh) that carry information about the internet system like wifi-ID and password
 - utils_scripts: carry useful scripts that are not used too often, like creating keys for an aws device
+- image/: contain pictures used for the README.md or other documentation
 
 ### Device code directory structure
 
@@ -62,6 +63,18 @@ For example, to flash the connected device with pc_controller code:
 ```shell
 ./mongoose_setup.sh pc_controller/
 ```
+
+## How the system works
+
+The system works by having master handler handles all the requests received by the mcu, then, depending on the result, it will either handle the request itself(if it's something simple like to confirm connection), however, if the requests were sent by the aws lambda, it would forward that request to the correct handler or report no appropriate handler existed
+
+The master handler relied on parsing the request(a json message) and get the namespace to know which handler to forward the command to
+
+All handler are children of the ParentHandler class which declares a few abstract methods that the handler must implment to fit into the system, typically, when a request is passed onto a handler, its job is to act on the request, then compose a message appropriate to its type of namespace and then return the reply, which will be sent by the master handler to the lambda function on aws cloud throught mqtt
+
+The device_config.hpp files are used to let the master handler know more about the system(like which mqtt channel to sub/pub to), the device_config also carry customized info like the pin numbers of control pin used by the handler, the device_config.hpp file also define a few macros that must be implemented to initialize the handler list that the user implemented
+
+The format specifier to the aws iot reply is stored in the aws_iot_fmt.hpp in the based_framework folder since aws iot devices that implement the same endpoints share the same reply format
 
 ## Implementing a new aws devices
 

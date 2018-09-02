@@ -4,6 +4,13 @@
 #include "event_handler_util.hpp"
 
 #include "device_config.hpp"
+/**
+ * @brief
+ *
+ * @file power_ctrl_handler.cpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
 
 #include <stdarg.h>
 #include <cstring>
@@ -20,6 +27,11 @@ PowerCtrlHandler::PowerCtrlHandler(void) {
   strcpy(ParentHandler::_nameSpace, "Alexa.PowerController");
 }
 
+/**
+ * @brief
+ *
+ * @return HandlerError
+ */
 HandlerError PowerCtrlHandler::actuatePcChange(void) {
   write_pin(PC_CTRL_PIN, SWITCH_ON_STATE);
   mgos_msleep(SWITCH_DELAY_MS);  // delay to make sure the switch has effect
@@ -27,6 +39,12 @@ HandlerError PowerCtrlHandler::actuatePcChange(void) {
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief
+ *
+ * @param pin
+ * @param arg
+ */
 void PowerCtrlHandler::buttonInterruptHandler(int pin, void* arg) {
   // LOG(LL_INFO, ("Button pressed"));
   if (PC_BUTTON_PIN == pin) {
@@ -38,6 +56,15 @@ void PowerCtrlHandler::buttonInterruptHandler(int pin, void* arg) {
   (void)arg;
 }
 
+/**
+ * @brief
+ *
+ * @param mgCon struct representing connection to server
+ * @param message message sent to the mcu by the server
+ * @param commandName
+ * @param response
+ * @return HandlerError
+ */
 HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                              struct mg_str*        message,
                                              char*                 commandName,
@@ -79,7 +106,19 @@ HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief
+ *
+ * @param pcStatus
+ */
 void PowerCtrlHandler::setPcStatus(bool pcStatus) { PowerCtrlHandler::_pcIsOn = pcStatus; }
+
+/**
+ * @brief
+ *
+ * @return true
+ * @return false
+ */
 bool PowerCtrlHandler::getPcStatus(void) { return PowerCtrlHandler::_pcIsOn; }
 
 HandlerError PowerCtrlHandler::handleReport(char* stateReport) {

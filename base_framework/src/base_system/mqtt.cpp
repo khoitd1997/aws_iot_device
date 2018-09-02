@@ -21,6 +21,13 @@
 #define SUB_QOS 1
 #define PUB_QOS 1
 
+/**
+ * @brief function used for subscribing to mqtt channels, has variable arguments support
+ *
+ * @param mgConnection struct represents connection to server
+ * @param fmt format of the string to be sent to server for subscribing
+ * @param ... variable arguments for the format specified
+ */
 void sub(struct mg_connection *mgConnection, const char *fmt, ...) {
   char                            buf[MAX_RESPONSE_LEN];
   struct mg_mqtt_topic_expression topicExpression = {.topic = buf, .qos = SUB_QOS};
@@ -38,6 +45,14 @@ void sub(struct mg_connection *mgConnection, const char *fmt, ...) {
   LOG(LL_INFO, ("Subscribing to %s (id %u)", buf, sub_id));
 }
 
+/**
+ * @brief used for publishing to a specific channel of the mqtt server
+ *
+ * @param mgConnection struct represents connection to server
+ * @param pubTopic topic to publish to
+ * @param fmt format of the message to be published
+ * @param ... variable arguments for the format specified
+ */
 void pub(struct mg_connection *mgConnection, const char *pubTopic, const char *fmt, ...) {
   char            msg[MAX_RESPONSE_LEN];
   struct json_out jmo = JSON_OUT_BUF(msg, sizeof(msg));

@@ -1,3 +1,15 @@
+/**
+ * @brief folder carrying utils functions that are helpful either to the master handler or to the
+ * child handler
+ *
+ * The folder implements important things like error message creation, aws state report printing
+ * helper function
+ *
+ * @file event_handler_util.cpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #include "event_handler_util.hpp"
 
 #include "mgos.h"
@@ -7,9 +19,15 @@
 #include <stdint.h>
 #include <string.h>
 
-// https://forum.mongoose-os.com/discussion/2290/frozen-json-scanf-quotation-marks (json scanf
-// question)
-
+/**
+ * @brief create error message based on the error code given and stores it in the given buffer
+ * @param error error code of the problems
+ * @param payload the payload of the message received by the mcu
+ * @param errorMessage the buffer to store the error message
+ * @return return any errors that are encountered
+ * The function stores a list of struct that stores the error code and their corresponding error
+ * message, the function searches through the struct to find the correct message
+ */
 HandlerError create_error_message(const HandlerError error,
                                   struct mg_str*     payload,
                                   char*              errorMessage) {
@@ -44,6 +62,13 @@ HandlerError create_error_message(const HandlerError error,
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief used for writing to a digital pin given its pin number and state
+ *
+ * @param pinNum pin to write
+ * @param pinState state of the pin, 0 for off, 1 for on
+ * @return HandlerError return error code
+ */
 HandlerError write_pin(const uint8_t pinNum, const uint8_t pinState) {
   // LOG(LL_INFO, ("Writing to pins %d with state %d", pinNum, pinState));
   if (false == mgos_gpio_set_mode(pinNum, MGOS_GPIO_MODE_OUTPUT)) { return MQTT_ERR_GPIO; }
@@ -51,12 +76,27 @@ HandlerError write_pin(const uint8_t pinNum, const uint8_t pinState) {
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief used to reat the status of a digital pin
+ *
+ * @param pinNum pin number to read
+ * @param pinState pointer to write the result of the read to
+ * @return Handler Error problem error code
+ */
 HandlerError read_pin(const uint8_t pinNum, uint8_t* pinState) {
   // LOG(LL_INFO, ("Reading Pins %d", pinNum));
   *pinState = (mgos_gpio_read(pinNum) ? 1 : 0);
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief get command name as well as command namespace of messages sent from aws lambda
+ *
+ * @param message message received by the mcu through mqtt
+ * @param commandName name of the command like "TurnOff"
+ * @param nameSpace namespace of the command like "Alexa.PowerController"
+ * @return HandlerError error code
+ */
 HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nameSpace) {
   assert(message);
 
@@ -78,16 +118,34 @@ HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nam
   }
 }
 
+/**
+ * @brief print the beginning of an aws smarthome state report
+ *
+ * @param jsonOut the buffer to store the report
+ * @return HandlerError problem error code
+ */
 HandlerError printStateReportOpen(char* jsonOut) {
   strcat(jsonOut, "{\"properties\": [");
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief print the delimiter between endpoints reports in aws iot state report
+ *
+ * @param jsonOut buffer to store the json report
+ * @return HandlerError problem error code
+ */
 HandlerError printStateReportDelimiter(char* jsonOut) {
   strcat(jsonOut, ", ");
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief print the ending part of an aws iot state report
+ *
+ * @param jsonOut buffer to store the json report
+ * @return HandlerError problem error code
+ */
 HandlerError printStateReportEnd(char* jsonOut) {
   strcat(jsonOut, "]}");
   return HANDLER_NO_ERR;

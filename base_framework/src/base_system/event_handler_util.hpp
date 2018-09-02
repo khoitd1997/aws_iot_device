@@ -9,6 +9,11 @@
 #define MAX_COMMAND_LEN 30
 #define MAX_NAMESPACE_LEN 30
 
+/**
+ * @brief enum defining errors that the system(including master handler and other child handler) may
+ * have
+ *
+ */
 typedef enum {
   HANDLER_NO_ERR = 0,
   MQTT_ERR_UNKNOWN_COMMAND,
@@ -20,6 +25,10 @@ typedef enum {
   HANDLER_NULL
 } HandlerError;
 
+/**
+ * @brief used for storing the error code and its corresponding error message
+ *
+ */
 typedef struct {
   HandlerError errorCode;
   const char*  errorMessage;

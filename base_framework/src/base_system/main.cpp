@@ -20,6 +20,12 @@
 #include "device_config.hpp"
 #include "master_handler.hpp"
 
+/**
+ * @brief the starting point of the program register the master handler as well as any interrupts
+ * define by the user
+ *
+ * @return enum mgos_app_init
+ */
 enum mgos_app_init_result mgos_app_init(void) {
   REGISTER_INTERRUPT();
   mgos_mqtt_add_global_handler(MasterAwsHandler::handleAllReq, NULL);

@@ -1,3 +1,11 @@
+/**
+ * @brief
+ *
+ * @file temp_sensor_handler.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _TEMP_SENSOR_HANDLER_HPP
 #define _TEMP_SENSOR_HANDLER_HPP
 
@@ -9,6 +17,10 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief
+ *
+ */
 class TempSensorHandler : public ParentHandler {
  public:
   TempSensorHandler(void);
