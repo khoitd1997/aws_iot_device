@@ -4,6 +4,14 @@
 
 This repo contains the device code running mongoose OS connecting to AWS mqtt server
 
+## Backend of IoT
+
+This project uses AWS lambda for triaging requests from Alexa, the essential detail of the request is passed onto the correct device thanks to a database corresponding between endpoint ID and the channel that the device pub/sub to
+
+Replies from the devices are sent to the lambda function, then attched with more details to fit Alexa smart home json response format and then sent back to Alexa
+
+The code for the lambda function backend is stored in another repo
+
 ## Device List
 
 - pc Controller, used for turning on/off a computer

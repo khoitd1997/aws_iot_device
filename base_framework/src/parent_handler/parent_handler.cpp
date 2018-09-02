@@ -20,7 +20,6 @@
 /**
  * @brief length in characters of the temporary buffer used for holding a temp json string before it
  * can be copied to the string returned to the master handler
- *
  */
 #define TEMP_BUF_LEN 700
 

@@ -1,0 +1,7 @@
+<map id="src/base_system/event_handler_util.hpp" name="src/base_system/event_handler_util.hpp">
+<area shape="rect" id="node2" href="$event__handler__util_8cpp.html" title="folder carrying utils functions that are helpful either to the master handler or to the child handler..." alt="" coords="5,95,164,136"/>
+<area shape="rect" id="node3" href="$master__handler_8hpp.html" title="header file for master handler class " alt="" coords="188,95,355,136"/>
+<area shape="rect" id="node4" href="$master__handler_8cpp.html" title="Source files for master handler class. " alt="" coords="261,184,428,225"/>
+<area shape="rect" id="node5" href="$parent__handler_8hpp.html" title="contain class declaration for the ParentHandler class " alt="" coords="430,95,566,136"/>
+<area shape="rect" id="node6" href="$parent__handler_8cpp.html" title="contain the source files for the ParentHandler class " alt="" coords="478,184,614,225"/>
+</map>

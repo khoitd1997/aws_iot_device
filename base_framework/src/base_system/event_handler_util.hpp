@@ -1,3 +1,11 @@
+/**
+ * @brief header file for event handler utils
+ *
+ * @file event_handler_util.hpp
+ * @author Khoi Trinh
+ * @date 2018-09-01
+ */
+
 #ifndef _EVENT_HANDLER_UTIL_H
 #define _EVENT_HANDLER_UTIL_H
 
@@ -6,13 +14,19 @@
 
 #include <stdint.h>
 
+/**
+ * @brief maximum length in characters of command name sent by the server
+ */
 #define MAX_COMMAND_LEN 30
+
+/**
+ * @brief maximum length in characters of the namespace name sent by the server
+ */
 #define MAX_NAMESPACE_LEN 30
 
 /**
  * @brief enum defining errors that the system(including master handler and other child handler) may
  * have
- *
  */
 typedef enum {
   HANDLER_NO_ERR = 0,
@@ -27,7 +41,6 @@ typedef enum {
 
 /**
  * @brief used for storing the error code and its corresponding error message
- *
  */
 typedef struct {
   HandlerError errorCode;

@@ -25,6 +25,7 @@
  * @param payload the payload of the message received by the mcu
  * @param errorMessage the buffer to store the error message
  * @return return any errors that are encountered
+ *
  * The function stores a list of struct that stores the error code and their corresponding error
  * message, the function searches through the struct to find the correct message
  */

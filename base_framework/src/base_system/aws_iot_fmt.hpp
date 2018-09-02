@@ -1,7 +1,7 @@
 /**
  * @brief used for storing aws iot communication format
  *
- * This file is used for printing reply format for each aws devices as well as their total
+ * This file is used for storing reply format for each aws devices as well as their total
  * arugments, the format contains some modifier that's usually not supported by printf like %Q since
  * they are supposed to be fed into the frozen json_printf, which supports them
  *
