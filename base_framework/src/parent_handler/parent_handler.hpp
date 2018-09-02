@@ -22,7 +22,6 @@
 /**
  * @brief the parent handler class that is the blueprint for other child handlers to implement, it
  * also defines a couple functions that child handler can use
- *
  */
 class ParentHandler {
  public:
@@ -39,6 +38,10 @@ class ParentHandler {
   char* getNameSpace(void);
 
  protected:
+   /**
+   * @brief namespace that the handler supports, all child classes must initialize this variable to
+   * let the master handler know which namespace it supports
+   */
   char _nameSpace[MAX_NAMESPACE_LEN];
 };
 

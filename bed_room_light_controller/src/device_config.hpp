@@ -12,7 +12,16 @@
 #include "parent_handler.hpp"
 #include "power_ctrl_handler.hpp"
 
+/****************MQTT Config****************************/
+
+/**
+ * @brief topic that the bed room light controller subscribe to
+ */
 #define SUBSCRIBE_TOPIC "/bedRoomLightReq"
+
+/**
+ * @brief topic that the bed room light controller will publish replies to
+ */
 #define PUBLISH_TOPIC "/bedRoomLightRes"
 
 /****************Pin Config*****************************/

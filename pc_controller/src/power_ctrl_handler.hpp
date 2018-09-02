@@ -1,5 +1,5 @@
 /**
- * @brief
+ * @brief header file for the power controller class of the pc controller
  *
  * @file power_ctrl_handler.hpp
  * @author Khoi Trinh
@@ -17,12 +17,26 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
-#define SWITCH_ON_STATE 1
-#define BUTTON_DEBOUNCE_MS 50
-#define SWITCH_DELAY_MS 150
 /**
- * @brief
+ * @brief state of the pin when the relay is on
+ */
+#define SWITCH_ON_STATE 1
+
+/**
+ * @brief debouncing period for the pc case switch
+ */
+#define BUTTON_DEBOUNCE_MS 50
+
+/**
+ * @brief the delay between turning on and turning off the relay controlling the pc motherboard
+ * pins, used to make sure that the switching actually has an observable effect
  *
+ */
+#define SWITCH_DELAY_MS 150
+
+/**
+ * @brief the power controller class responsible for handling power controller endpoint
+ * functionalities for the pc controller
  */
 class PowerCtrlHandler : public ParentHandler {
  public:
@@ -39,7 +53,11 @@ class PowerCtrlHandler : public ParentHandler {
 
  private:
   static HandlerError actuatePcChange(void);
-  static bool         _pcIsOn;
+
+  /**
+   * @brief state variable keeping track if the pc is on or off
+   */
+  static bool _pcIsOn;
 };
 
 #endif

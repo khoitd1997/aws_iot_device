@@ -58,6 +58,9 @@ HandlerError ParentHandler::createReport(char* report, const char* fmt, uint8_t 
  * @param requestNameSpace the namespace extracted from the message
  * @return true if can handle the request
  * @return false if can not handle the request
+ *
+ * compare the namespace given with the namespace that the object says it supports and return
+ * result
  */
 bool ParentHandler::canHandleRequest(char* requestNameSpace) {
   return ((0 == strcmp(requestNameSpace, ParentHandler::_nameSpace)) ? true : false);

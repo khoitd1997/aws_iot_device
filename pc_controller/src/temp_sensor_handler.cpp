@@ -1,5 +1,5 @@
 /**
- * @brief
+ * @brief TempSensorHandler source files for pc controller
  *
  * @file temp_sensor_handler.cpp
  * @author Khoi Trinh
@@ -19,16 +19,22 @@
 #include "mgos_adc.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief TMP36 coefficient to convert from analog voltage to celsius
+ *
+ */
 #define TMP36_COEFF 3300 / 1024
 
 TempSensorHandler::TempSensorHandler() { strcpy(_nameSpace, "Alexa.TemperatureSensor"); }
 
 /**
- * @brief
+ * @brief handle aws request pertainting to temperature sensor endpoint for the pc controller
+ * The function will mesasure the temperature(using the TMP36 sensor for now) and put it in areport
+ * and write it to a buffer
  *
  * @param mgCon struct representing connection to server
  * @param message message sent to the mcu by the server
- * @param response
+ * @param response buffer to write the response to
  * @return HandlerError
  */
 HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
@@ -43,9 +49,9 @@ HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
 }
 
 /**
- * @brief
+ * @brief handle state report pertainting to temperature sensor endpoint for the pc controller
  *
- * @param stateReport
+ * @param stateReport buffer to write report to
  * @return HandlerError
  */
 HandlerError TempSensorHandler::handleReport(char* stateReport) {

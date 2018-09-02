@@ -1,5 +1,5 @@
 /**
- * @brief
+ * @brief header file for power controller class for bed room light controller
  *
  * @file power_ctrl_handler.hpp
  * @author Khoi Trinh
@@ -18,8 +18,8 @@
 #include "mgos_mqtt.h"
 
 /**
- * @brief
- *
+ * @brief power controller class for the bed room light controller, responsible for handling an
+ * requests pertaining to the power controller namespace
  */
 class PowerCtrlHandler : public ParentHandler {
  public:
@@ -34,6 +34,9 @@ class PowerCtrlHandler : public ParentHandler {
   static bool getLightStatus(void);
 
  private:
+  /**
+   * @brief state variable to keep track of the last known light status
+   */
   static bool _lightIsOn;
 };
 

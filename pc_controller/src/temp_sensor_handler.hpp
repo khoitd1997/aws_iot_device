@@ -1,5 +1,5 @@
 /**
- * @brief
+ * @brief header file for TempSensorHandler class of the pc controller device
  *
  * @file temp_sensor_handler.hpp
  * @author Khoi Trinh
@@ -18,7 +18,8 @@
 #include "mgos_mqtt.h"
 
 /**
- * @brief
+ * @brief TempSensorHandler class, responsible for handling temperature sensor endpoint
+ * functionalities of aws
  *
  */
 class TempSensorHandler : public ParentHandler {

@@ -27,7 +27,6 @@ bool PowerCtrlHandler::_lightIsOn = false;
 /**
  * @brief Construct a new Power Ctrl Handler:: Power Ctrl Handler object intialize a power
  * controller handler for the bed room light controller
- *
  */
 PowerCtrlHandler::PowerCtrlHandler(void) {
   strcpy(ParentHandler::_nameSpace, "Alexa.PowerController");
@@ -39,9 +38,11 @@ PowerCtrlHandler::PowerCtrlHandler(void) {
  *
  * @param mgCon struct representing connection to server
  * @param message message sent to the mcu by the server
- * @param commandName
- * @param response
+ * @param commandName name of the command in the payload sent by the server
+ * @param response buffer to write the response to
  * @return HandlerError
+ *
+ * Turn the light on or off based on the command name then make a report of the new state
  */
 HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                              struct mg_str*        message,
@@ -85,22 +86,26 @@ HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
 }
 
 /**
- * @brief
- *
- * @param lightStatus
+ * @brief set the light status variable
+ * @param lightStatus the status to set
  */
 void PowerCtrlHandler::setLightStatus(bool lightStatus) {
   PowerCtrlHandler::_lightIsOn = lightStatus;
 }
 
 /**
- * @brief
- *
- * @return true
- * @return false
+ * @brief retrieve the status of the bed room lgiht
+ * @return true for light on
+ * @return false for light off
  */
 bool PowerCtrlHandler::getLightStatus(void) { return PowerCtrlHandler::_lightIsOn; }
 
+/**
+ * @brief write a state report for the powercontroller endpoint to the given buffer
+ * @param stateReport buffer to write report to
+ * @return HandlerError
+ * Will read the last known state of the light and then make a report
+ */
 HandlerError PowerCtrlHandler::handleReport(char* stateReport) {
   char powerStateStr[5] = "";
   if (true == PowerCtrlHandler::getLightStatus()) {

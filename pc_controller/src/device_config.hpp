@@ -1,5 +1,5 @@
 /**
- * @brief
+ * @brief config file for the pc controller device
  *
  * @file device_config.hpp
  * @author Khoi Trinh
@@ -13,7 +13,14 @@
 #include "power_ctrl_handler.hpp"
 #include "temp_sensor_handler.hpp"
 
+/****************MQTT Config****************************/
+/**
+ * @brief topic that the pc controller subscribe to
+ */
 #define SUBSCRIBE_TOPIC "/pcReq"
+/**
+ * @brief topic that the pc controller will publish replise to
+ */
 #define PUBLISH_TOPIC "/pcRes"
 
 /****************Pinout Config**************************/
