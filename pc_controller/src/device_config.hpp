@@ -24,9 +24,20 @@
 #define PUBLISH_TOPIC "/pcRes"
 
 /****************Pinout Config**************************/
-#define PC_CTRL_PIN 5    // D1
+
+/**
+ * @brief pins used to control the relay controlling the pc motherboard pins
+ */
+#define PC_CTRL_PIN 5  // D1
+
+/**
+ * @brief pins used to sense the pc case switch actuation
+ */
 #define PC_BUTTON_PIN 4  // D2
 
+/**
+ * @brief analog pins used for reading temperature sensor reading
+ */
 #define ANALOG_PIN 0
 
 /****************Device Handler Config*****************/

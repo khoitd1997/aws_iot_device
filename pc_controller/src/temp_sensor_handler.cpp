@@ -21,7 +21,6 @@
 
 /**
  * @brief TMP36 coefficient to convert from analog voltage to celsius
- *
  */
 #define TMP36_COEFF 3300 / 1024
 
@@ -29,13 +28,15 @@ TempSensorHandler::TempSensorHandler() { strcpy(_nameSpace, "Alexa.TemperatureSe
 
 /**
  * @brief handle aws request pertainting to temperature sensor endpoint for the pc controller
- * The function will mesasure the temperature(using the TMP36 sensor for now) and put it in areport
- * and write it to a buffer
+ *
  *
  * @param mgCon struct representing connection to server
  * @param message message sent to the mcu by the server
  * @param response buffer to write the response to
  * @return HandlerError
+ *
+ * This function is empty and is only here to fulfill the contract with the parent handler because
+ * the aws temperature sensor gets reading only through state report and not regular request
  */
 HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
                                               struct mg_str*        message,
@@ -50,7 +51,8 @@ HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
 
 /**
  * @brief handle state report pertainting to temperature sensor endpoint for the pc controller
- *
+ * The function will mesasure the temperature(using the TMP36 sensor for now) and put it in areport
+ * and write it to a buffer
  * @param stateReport buffer to write report to
  * @return HandlerError
  */
