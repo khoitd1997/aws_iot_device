@@ -19,7 +19,9 @@ The format specifier to the aws iot reply is stored in the aws_iot_fmt.hpp in th
 ## Doxygen docs
 
 [Base Framework Code](https://cdn.rawgit.com/khoitd1997/aws_iot_device/6c068318/base_framework/docs/html/index.html)
+
 [Bed Room Light Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/bed_room_light_controller/docs/html/index.html)
+
 [Pc Controller](https://github.com/khoitd1997/aws_iot_device/blob/master/pc_controller/docs/html/index.html)
 
 ## Backend of IoT
