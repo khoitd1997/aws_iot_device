@@ -72,6 +72,12 @@ For example, to flash the connected device with pc_controller code:
 ./mongoose_setup.sh pc_controller/
 ```
 
+- create_docs.sh: used to create doxygen docs, there is a list of folder that would be visited, add more if you have more devices, you need to have a doxyfile in the folder you want to generate docs for before running this command
+
+```shell
+create_docs.sh # use the Doxyfile in each project folder to generate docs
+```
+
 ## How the system works
 
 The system works by having master handler handles all the requests received by the mcu, then, depending on the result, it will either handle the request itself(if it's something simple like to confirm connection), however, if the requests were sent by the aws lambda, it would forward that request to the correct handler or report no appropriate handler existed
@@ -96,13 +102,22 @@ For example, if we want to implement an iot device named pc_controller
 #----------------------begin filling out info------------------------------
 nano pc_controller/credentials/mongoose_info.sh # fill in devices info here
 
-# then go to aws iot core to register your devices, and then download the public, private keys, the certificate and certificate authority to the fs folder of the device, name them respectively according to the picture above
+# then go to aws iot core to register your devices, and then download the public, private keys,
+# the certificate and certificate authority to the fs folder of the device,
+# name them respectively according to the picture above
 
-nano pc_controller/mos.yml # adjust mos.yml file according to your needs, remember to change things like device name, device ID, as well as the list of libraries you need
+# adjust mos.yml file according to your needs, remember to change things like device name,
+# device ID, as well as the list of libraries you need
+nano pc_controller/mos.yml
 
-nano pc_controller/device_config.hpp # change the macro based on your devices, specific documentation can be found in the example devices folder, but mainly you will need to implement how to initialize handler list and how to regsiter the interrupts you need(leave blank if you don't need any)
+# change the macro based on your devices, specific documentation can be found in
+# the example devices folder, but mainly you will need to implement how
+# to initialize handler list and how to regsiter the interrupts you need(leave blank if you don't need any)
+nano pc_controller/device_config.hpp
 
-# Then start writing your handler classes, all handler classes must derive from the ParentHandler class found in the parent_handler folder in the based_framework folder, for implementation example, check the docs of the example devices implemented
+# Then start writing your handler classes, all handler classes must derive from the
+# ParentHandler class found in the parent_handler folder in the based_framework folder,
+# for implementation example, check the docs of the example devices implemented
 
 #--------------------------Flashing and testing-----------------------------
 ./mongoose_setup.sh pc_controller/ # compile the code, flash it to devices and open a console to the device
