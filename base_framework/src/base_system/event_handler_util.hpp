@@ -12,6 +12,7 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+#include <stdarg.h>
 #include <stdint.h>
 
 /**
@@ -36,6 +37,7 @@ typedef enum {
   MQTT_CONFIG_NOT_SET,
   JSON_UNKNOWN_NAMESPACE,
   JSON_VPRINTF_ERROR,
+  JSON_VSCANF_ERROR,
   HANDLER_NULL
 } HandlerError;
 
@@ -48,6 +50,10 @@ typedef struct {
 } ErrDescript;
 
 HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nameSpace);
+HandlerError getAwsPayload(const struct mg_str* message,
+                           const char*          awsPayloadFormat,
+                           const uint8_t&       totalArg,
+                           ...);
 
 HandlerError write_pin(const uint8_t pinNum, const uint8_t pinState);
 HandlerError read_pin(const uint8_t pinNum, uint8_t* pinState);

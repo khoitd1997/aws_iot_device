@@ -22,6 +22,15 @@
  */
 #define PWR_CTRL_TOTAL_ARG 6
 
+#define SPKR_CTRL_FMT "{%Q: %Q, %Q: %Q, %Q: %d}, {%Q: %Q, %Q: %Q, %Q: %B}"
+#define SPKR_CTRL_TOTAL_ARG 12
+#define SPKR_ADJUST_VOL_PAYLOAD_FMT "{ volume:%d, volumeDefault:%B }"
+#define SPKR_ADJUST_VOL_PAYLOAD_TOTAL_ARG 2
+#define SPKR_SET_MUTE_PAYLOAD_FMT "{ mute:%B }"
+#define SPKR_SET_MUTE_PAYLOAD_TOTAL_ARG 1
+#define SPKR_SET_VOL_PAYLOAD_FMT "{volume:%d}"
+#define SPKR_SET_VOL_PAYLOAD_TOTAL_ARG 1
+
 /**
  * @brief temperature controller devices reply format
  *

@@ -15,6 +15,7 @@
 #include "mgos.h"
 #include "mgos_mqtt.h"
 
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -38,7 +39,8 @@ HandlerError create_error_message(const HandlerError error,
                                       {MQTT_CONFIG_NOT_SET, "mqtt config not set"},
                                       {JSON_UNKNOWN_NAMESPACE, "unknown namespace"},
                                       {JSON_VPRINTF_ERROR, "problem with json vprintf"},
-                                      {HANDLER_NULL, "null handler detected"}};
+                                      {HANDLER_NULL, "null handler detected"},
+                                      {JSON_VSCANF_ERROR, "problem with json vscanf"}};
 
   // finding matching error message for error code
   uint8_t errorDesc;
@@ -117,6 +119,24 @@ HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nam
   } else {
     return JSON_NOT_ENOUGH_ARG;
   }
+}
+
+HandlerError getAwsPayload(const struct mg_str* message,
+                           const char*          awsPayloadFormat,
+                           const uint8_t&       totalArg,
+                           ...) {
+  va_list vaList;
+  va_start(vaList, totalArg);
+  HandlerError errCode      = HANDLER_NO_ERR;
+  uint32_t     totalElement = 0;
+
+  if (totalArg !=
+      (totalElement = json_vscanf(message->p, message->len, "payload:" awsPayloadFormat, vaList))) {
+    errCode = JSON_VSCANF_ERROR;
+  }
+  LOG(LL_INFO, ("Total Payload Scanned: %d", totalByte));
+  va_end(vaList);
+  return errCode;
 }
 
 /**
