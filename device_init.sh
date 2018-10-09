@@ -25,3 +25,11 @@ cd ..
 cp ${SKELETON_DIR}/fs/index.html ${PROJECT_NAME}/fs/
 cp ${SKELETON_DIR}/src/device_config.hpp ${PROJECT_NAME}/src/
 cp ${SKELETON_DIR}/mos.yml ${PROJECT_NAME}/
+mkdir ${PROJECT_NAME}/credentials
+cp sample/mongoose_info.sh ${PROJECT_NAME}/credentials/mongoose_info.sh
+
+# first time initialization of the system info directory
+if [ ! -d "system_info" ]; then
+  mkdir system_info
+  cp sample/system_info.sh system_info/system_info.sh
+fi

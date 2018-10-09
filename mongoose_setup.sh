@@ -16,7 +16,7 @@ fi
 build_dir=$1 # change based on the devices you want to build
 
 #----------DEPENDENCY SECTION------------------------
-source ${build_dir}/credentials/mongoose_info.sh # get device info
+source ${build_dir}credentials/mongoose_info.sh # get device info
 source system_info/system_info.sh # get system info
 set -e
 set -x

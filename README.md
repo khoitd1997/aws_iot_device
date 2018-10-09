@@ -36,6 +36,7 @@ The code for the lambda function backend is stored in another repo
 
 - pc Controller, used for turning on/off a computer
 - Bed room light controller, used for turning on/off light
+- Speaker Controller, used for controlling a regular amazon basic speaker
 
 ## Directory structure
 
