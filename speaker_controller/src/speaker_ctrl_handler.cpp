@@ -41,6 +41,7 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
     setVolume(targetVol);
 
   } else if (0 == strcmp(commandName, "AdjustVolume")) {
+    LOG(LL_INFO, ("Adjusting Volume"));
     uint32_t adjustVol    = 0;
     int32_t  isDefaultVol = 0;
 
@@ -112,14 +113,16 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
 
   if (targetVol == currentVolume_) { return HANDLER_NO_ERR; }
 
-  // activated the chip
-  write_pin(SPKR_SELECT_PIN, SPKR_SELECT_ACTIVATED);
-
   // unmute device automatically when user set volume
   setMute(false);
 
   // change adjustment direction
   (currentVolume_ < targetVol) ? changeWiperDir(true) : changeWiperDir(false);
+  mgos_msleep(1);
+
+  // activated the chip
+  write_pin(SPKR_SELECT_PIN, SPKR_SELECT_ACTIVATED);
+  mgos_msleep(1);
 
   // start toggling the pin
   for (int32_t volumeIndex = 0; volumeIndex < abs(currentVolume_ - targetVol); ++volumeIndex) {
