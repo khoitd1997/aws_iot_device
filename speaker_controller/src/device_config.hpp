@@ -14,41 +14,35 @@
 
 /****************MQTT Config****************************/
 /**
- * @brief topic that the pc controller subscribe to
+ * @brief topic that the speaker controller subscribe to
  */
-#define SUBSCRIBE_TOPIC "/pcSpkrReq"
+#define SUBSCRIBE_TOPIC "/speakerReq"
 /**
- * @brief topic that the pc controller will publish replise to
+ * @brief topic that the speaker controller will publish replies to
  */
-#define PUBLISH_TOPIC "/pcSpkrRes"
+#define PUBLISH_TOPIC "/speakerRes"
 
 /****************Pinout Config**************************/
 
 /**
  * @brief pins used to control the relay controlling the pc motherboard pins
  */
-#define SPKR_INC_PIN 5  // D1
-#define SPKR_DIR_PIN 6  // TODO: change these things
-#define SPKR_SELECT_PIN 7
+#define SPKR_PWR_PIN 14  // control speaker power source
+#define SPKR_PWR_ON_STATE 1
+
+#define SPKR_INC_PIN 5
+#define SPKR_DIR_PIN 4
+#define SPKR_SELECT_PIN 12
 
 #define VOLUME_UP_LIMIT 100
 #define VOLUME_DOWN_LIMIT 0
-
-// TODO: maybe support external button too
-/**
- * @brief pins used to sense the pc case switch actuation
- */
-#define PC_BUTTON_PIN 4  // D2
-
-/**
- * @brief analog pins used for reading temperature sensor reading
- */
-#define ANALOG_PIN 0
 
 #define SPKR_VOLUME_DELAY_MS 1
 #define SPKR_INC_ACTIVATED_STATE 0  // active low pin
 #define SPKR_PIN_UP_STATE 1         // TODO: calibrate
 #define SPKR_SELECT_ACTIVATED 0
+
+// TODO: add support for manual button
 
 /****************Device Handler Config*****************/
 

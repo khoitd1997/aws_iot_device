@@ -13,12 +13,17 @@
 
 SpeakerCtrlHandler::SpeakerCtrlHandler(void) : currentVolume_(0), isMuted_(true) {
   strcpy(ParentHandler::_nameSpace, "Alexa.Speaker");
+  setMute(isMuted_);
 }
 
 HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                                struct mg_str*        message,
                                                char*                 commandName,
                                                char*                 response) {
+  HandlerError errorCode = HANDLER_NO_ERR;
+
+  LOG(LL_INFO, ("Handling Speaker Event"));
+
   if ((0 != strcmp(commandName, "SetVolume")) && (0 != strcmp(commandName, "AdjustVolume")) &&
       (0 != strcmp(commandName, "SetMute"))) {
     return MQTT_ERR_UNKNOWN_COMMAND;
@@ -27,26 +32,41 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
   if (0 == strcmp(commandName, "SetVolume")) {
     uint32_t targetVol = 0;
 
-    getAwsPayload(message, SPKR_SET_VOL_PAYLOAD_FMT, SPKR_SET_VOL_PAYLOAD_TOTAL_ARG, &targetVol);
+    if (HANDLER_NO_ERR !=
+        (errorCode = getAwsPayload(
+             message, SPKR_SET_VOL_PAYLOAD_FMT, SPKR_SET_VOL_PAYLOAD_TOTAL_ARG, &targetVol))) {
+      return errorCode;
+    }
+
     setVolume(targetVol);
 
   } else if (0 == strcmp(commandName, "AdjustVolume")) {
     uint32_t adjustVol    = 0;
-    bool     isDefaultVol = false;
+    int32_t  isDefaultVol = 0;
 
-    getAwsPayload(message,
-                  SPKR_ADJUST_VOL_PAYLOAD_FMT,
-                  SPKR_ADJUST_VOL_PAYLOAD_TOTAL_ARG,
-                  &adjustVol,
-                  &isDefaultVol);
+    if (HANDLER_NO_ERR != (errorCode = getAwsPayload(message,
+                                                     SPKR_ADJUST_VOL_PAYLOAD_FMT,
+                                                     SPKR_ADJUST_VOL_PAYLOAD_TOTAL_ARG,
+                                                     &adjustVol,
+                                                     &isDefaultVol))) {
+      return errorCode;
+    }
+
     setVolume(currentVolume_ + adjustVol);
 
   } else if ((0 == strcmp(commandName, "SetMute"))) {
-    bool isMuted = false;
-    getAwsPayload(message, SPKR_SET_MUTE_PAYLOAD_FMT, SPKR_SET_MUTE_PAYLOAD_TOTAL_ARG, &isMuted);
-    setMute(isMuted);
+    int32_t isMuted = 0;
+    LOG(LL_INFO, ("Handling Set Mute"));
+
+    if (HANDLER_NO_ERR !=
+        (errorCode = getAwsPayload(
+             message, SPKR_SET_MUTE_PAYLOAD_FMT, SPKR_SET_MUTE_PAYLOAD_TOTAL_ARG, &isMuted))) {
+      return errorCode;
+    }
+    setMute((bool)isMuted);
   }
 
+  LOG(LL_INFO, ("Handling Speaker Event, muted: %d", isMuted_));
   return createReport(response,
                       SPKR_CTRL_FMT,
                       SPKR_CTRL_TOTAL_ARG,
@@ -115,18 +135,17 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
 }
 
 HandlerError SpeakerCtrlHandler::setMute(const bool& isMuted) {
-  if (isMuted) {
-    // place the chip in power down mode
-    write_pin(SPKR_INC_PIN, !SPKR_INC_ACTIVATED_STATE);
-    write_pin(SPKR_SELECT_PIN, !SPKR_SELECT_ACTIVATED);
-  } else {
-    // activate the chip
-    write_pin(SPKR_SELECT_PIN, SPKR_SELECT_ACTIVATED);
-  }
+  (isMuted ? switchPwr(false) : switchPwr(true));
   isMuted_ = isMuted;
   return HANDLER_NO_ERR;
 }
 
 HandlerError SpeakerCtrlHandler::changeWiperDir(const bool& isUp) {
   return write_pin(SPKR_DIR_PIN, (isUp) ? SPKR_PIN_UP_STATE : !SPKR_PIN_UP_STATE);
+}
+
+HandlerError SpeakerCtrlHandler::switchPwr(const bool& isPowerOn) {
+  (isPowerOn ? write_pin(SPKR_PWR_PIN, SPKR_PWR_ON_STATE)
+             : write_pin(SPKR_PWR_PIN, !SPKR_PWR_ON_STATE));
+  return HANDLER_NO_ERR;
 }

@@ -20,6 +20,7 @@ class SpeakerCtrlHandler : public ParentHandler {
   SpeakerCtrlHandler(void);
 
  private:
+  HandlerError switchPwr(const bool& isPowerOn);
   HandlerError setVolume(const int32_t& targetVolume);
   HandlerError setMute(const bool& isMuted);
   HandlerError changeWiperDir(const bool& isUp);
