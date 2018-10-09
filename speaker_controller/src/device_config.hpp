@@ -38,9 +38,15 @@
 #define VOLUME_DOWN_LIMIT 0
 
 #define SPKR_VOLUME_DELAY_MS 1
-#define SPKR_INC_ACTIVATED_STATE 0  // active low pin
-#define SPKR_PIN_UP_STATE 1         // TODO: calibrate
+#define SPKR_INC_ACTIVATED_STATE 0
+#define SPKR_PIN_UP_STATE 1
 #define SPKR_SELECT_ACTIVATED 0
+
+// user input pins
+#define SPKR_VOL_LEVEL_INPUT 0  // analog input
+#define SPKR_PWR_INPUT_PIN 13
+#define SPKR_PWR_INPUT_OFF_STATE 0
+#define SPKR_PWR_INPUT_PIN_DEBOUNCE_MS 50
 
 // TODO: add support for manual button
 

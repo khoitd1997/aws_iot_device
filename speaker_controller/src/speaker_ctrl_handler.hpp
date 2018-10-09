@@ -19,6 +19,8 @@ class SpeakerCtrlHandler : public ParentHandler {
   ~SpeakerCtrlHandler(void){};
   SpeakerCtrlHandler(void);
 
+  static void pwrInputIntHandler(int pin, void* arg);
+
  private:
   HandlerError switchPwr(const bool& isPowerOn);
   HandlerError setVolume(const int32_t& targetVolume);

@@ -9,10 +9,30 @@
 #include "frozen.h"
 #include "mgos.h"
 #include "mgos_adc.h"
+#include "mgos_gpio.h"
 #include "mgos_mqtt.h"
 
+void SpeakerCtrlHandler::pwrInputIntHandler(int pin, void* arg) {
+  LOG(LL_INFO, ("Spkr button interrupt"));
+  SpeakerCtrlHandler* speakerCtrl = static_cast<SpeakerCtrlHandler*>(arg);
+
+  uint8_t pinState = 0;
+  read_pin(SPKR_PWR_INPUT_PIN, &pinState);
+  speakerCtrl->switchPwr(SPKR_PWR_INPUT_OFF_STATE == pinState ? false : true);
+}
+
 SpeakerCtrlHandler::SpeakerCtrlHandler(void) : currentVolume_(0), isMuted_(true) {
+  mgos_adc_enable(SPKR_VOL_LEVEL_INPUT);
   strcpy(ParentHandler::_nameSpace, "Alexa.Speaker");
+
+  // interupt register here to in order to access this object data
+  mgos_gpio_set_button_handler(SPKR_PWR_INPUT_PIN,
+                               MGOS_GPIO_PULL_DOWN,
+                               MGOS_GPIO_INT_EDGE_ANY,
+                               SPKR_PWR_INPUT_PIN_DEBOUNCE_MS,
+                               SpeakerCtrlHandler::pwrInputIntHandler,
+                               this);
+
   setMute(isMuted_);
 }
 
