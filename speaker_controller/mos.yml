@@ -1,5 +1,5 @@
 author: Khoi Trinh
-description: A Mongoose OS app used for controlling the pc speaker using a digital potentiometer
+description: A Mongoose OS app used for controlling the speaker using a digital potentiometer
 version: 1.0
 
 libs_version: ${mos.version}

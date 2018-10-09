@@ -12,7 +12,7 @@
 #include "mgos_mqtt.h"
 
 SpeakerCtrlHandler::SpeakerCtrlHandler(void) : currentVolume_(0), isMuted_(true) {
-  strcpy(ParentHandler::_nameSpace."Alexa.Speaker");
+  strcpy(ParentHandler::_nameSpace, "Alexa.Speaker");
 }
 
 HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
@@ -62,6 +62,8 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                       _nameSpace,
                       "value",
                       isMuted_);
+
+  (void)mgCon;
 }
 
 HandlerError SpeakerCtrlHandler::handleReport(char* stateReport) {
@@ -100,7 +102,7 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
   (currentVolume_ < targetVol) ? changeWiperDir(true) : changeWiperDir(false);
 
   // start toggling the pin
-  for (uint32_t volumeIndex = 0; volumeIndex < abs(currentVolume_ - targetVol); ++volumeIndex) {
+  for (int32_t volumeIndex = 0; volumeIndex < abs(currentVolume_ - targetVol); ++volumeIndex) {
     write_pin(SPKR_INC_PIN, SPKR_INC_ACTIVATED_STATE);
     mgos_msleep(SPKR_VOLUME_DELAY_MS);  // delay to make sure the switch has effect
     write_pin(SPKR_INC_PIN, !SPKR_INC_ACTIVATED_STATE);
@@ -108,6 +110,8 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
   }
 
   currentVolume_ = targetVol;
+
+  return HANDLER_NO_ERR;
 }
 
 HandlerError SpeakerCtrlHandler::setMute(const bool& isMuted) {

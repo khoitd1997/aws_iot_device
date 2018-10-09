@@ -131,10 +131,10 @@ HandlerError getAwsPayload(const struct mg_str* message,
   uint32_t     totalElement = 0;
 
   if (totalArg !=
-      (totalElement = json_vscanf(message->p, message->len, "payload:" awsPayloadFormat, vaList))) {
+      (totalElement = json_vscanf(message->p, message->len, awsPayloadFormat, vaList))) {
     errCode = JSON_VSCANF_ERROR;
   }
-  LOG(LL_INFO, ("Total Payload Scanned: %d", totalByte));
+  LOG(LL_INFO, ("Total Payload Scanned: %d", totalElement));
   va_end(vaList);
   return errCode;
 }

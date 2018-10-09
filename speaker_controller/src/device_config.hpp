@@ -63,14 +63,8 @@
  *
  * Register a button interrupt to actuate on pc's case power button
  */
-#define REGISTER_INTERRUPT()                                               \
-  do {                                                                     \
-    mgos_gpio_set_button_handler(PC_BUTTON_PIN,                            \
-                                 MGOS_GPIO_PULL_UP,                        \
-                                 MGOS_GPIO_INT_EDGE_NEG,                   \
-                                 BUTTON_DEBOUNCE_MS,                       \
-                                 PowerCtrlHandler::buttonInterruptHandler, \
-                                 NULL);                                    \
+#define REGISTER_INTERRUPT() \
+  do {                       \
   } while (0)
 
 /**
