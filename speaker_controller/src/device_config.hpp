@@ -43,7 +43,7 @@
 #define SPKR_SELECT_ACTIVATED 0
 
 // user input pins
-#define SPKR_VOL_LEVEL_INPUT 0  // analog input
+#define SPKR_VOL_LEVEL_INPUT_PIN 0  // analog input
 #define SPKR_PWR_INPUT_PIN 13
 #define SPKR_PWR_INPUT_OFF_STATE 0
 #define SPKR_PWR_INPUT_PIN_DEBOUNCE_MS 50

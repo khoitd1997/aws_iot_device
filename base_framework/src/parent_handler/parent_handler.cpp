@@ -23,6 +23,8 @@
  */
 #define TEMP_BUF_LEN 700
 
+ParentHandler::ParentHandler(void) {}
+
 /**
  * @brief used for generating a json report string based on the format given, usually child handler
  * uses this to prepare replies to the aws lambda server

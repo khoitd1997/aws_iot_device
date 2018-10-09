@@ -25,6 +25,7 @@
  */
 class ParentHandler {
  public:
+  ParentHandler(void);
   virtual ~ParentHandler(void) {}
   virtual HandlerError handleRequest(struct mg_connection* mgCon,
                                      struct mg_str*        message,
@@ -38,7 +39,7 @@ class ParentHandler {
   char* getNameSpace(void);
 
  protected:
-   /**
+  /**
    * @brief namespace that the handler supports, all child classes must initialize this variable to
    * let the master handler know which namespace it supports
    */

@@ -14,24 +14,27 @@
 
 void SpeakerCtrlHandler::pwrInputIntHandler(int pin, void* arg) {
   LOG(LL_INFO, ("Spkr button interrupt"));
-  SpeakerCtrlHandler* speakerCtrl = static_cast<SpeakerCtrlHandler*>(arg);
 
-  uint8_t pinState = 0;
-  read_pin(SPKR_PWR_INPUT_PIN, &pinState);
-  speakerCtrl->switchPwr(SPKR_PWR_INPUT_OFF_STATE == pinState ? false : true);
+  SpeakerCtrlHandler* speakerCtrl = static_cast<SpeakerCtrlHandler*>(arg);
+  if (SPKR_PWR_INPUT_PIN == pin) {
+    uint8_t pinState = 0;
+    read_pin(SPKR_PWR_INPUT_PIN, &pinState);
+    speakerCtrl->switchPwr(SPKR_PWR_INPUT_OFF_STATE == pinState ? false : true);
+  }
+  (void)pin;
+  (void)arg;
 }
 
 SpeakerCtrlHandler::SpeakerCtrlHandler(void) : currentVolume_(0), isMuted_(true) {
-  mgos_adc_enable(SPKR_VOL_LEVEL_INPUT);
+  mgos_adc_enable(SPKR_VOL_LEVEL_INPUT_PIN);
   strcpy(ParentHandler::_nameSpace, "Alexa.Speaker");
 
   // interupt register here to in order to access this object data
-  mgos_gpio_set_button_handler(SPKR_PWR_INPUT_PIN,
-                               MGOS_GPIO_PULL_DOWN,
-                               MGOS_GPIO_INT_EDGE_ANY,
-                               SPKR_PWR_INPUT_PIN_DEBOUNCE_MS,
-                               SpeakerCtrlHandler::pwrInputIntHandler,
-                               this);
+  mgos_gpio_set_mode(SPKR_PWR_INPUT_PIN, MGOS_GPIO_MODE_INPUT);
+  mgos_gpio_set_pull(SPKR_PWR_INPUT_PIN, MGOS_GPIO_PULL_UP);
+  mgos_gpio_set_int_handler(
+      SPKR_PWR_INPUT_PIN, MGOS_GPIO_INT_EDGE_ANY, SpeakerCtrlHandler::pwrInputIntHandler, this);
+  mgos_gpio_enable_int(SPKR_PWR_INPUT_PIN);
 
   setMute(isMuted_);
 }
@@ -43,6 +46,8 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
   HandlerError errorCode = HANDLER_NO_ERR;
 
   LOG(LL_INFO, ("Handling Speaker Event"));
+
+  mgos_gpio_disable_int(SPKR_PWR_INPUT_PIN);
 
   if ((0 != strcmp(commandName, "SetVolume")) && (0 != strcmp(commandName, "AdjustVolume")) &&
       (0 != strcmp(commandName, "SetMute"))) {
@@ -86,6 +91,8 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
     }
     setMute((bool)isMuted);
   }
+
+  mgos_gpio_enable_int(SPKR_PWR_INPUT_PIN);
 
   LOG(LL_INFO, ("Handling Speaker Event, muted: %d", isMuted_));
   return createReport(response,
