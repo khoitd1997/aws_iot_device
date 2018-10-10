@@ -1,3 +1,14 @@
+/**
+ * @file speaker_ctrl_handler.cpp
+ * @author Khoi Trinh
+ * @brief implemntation file for speaker handler
+ * @version 0.1
+ * @date 2018-10-10
+ *
+ * @copyright Copyright (c) 2018
+ *
+ */
+
 #include "speaker_ctrl_handler.hpp"
 
 #include <cstring>

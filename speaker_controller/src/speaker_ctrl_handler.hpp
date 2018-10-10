@@ -1,3 +1,12 @@
+/**
+ * @file speaker_ctrl_handler.hpp
+ * @author Khoi Trinh
+ * @brief header file for speaker handler
+ * @version 0.1
+ * @date 2018-10-10
+ *
+ */
+
 #ifndef _SPEAKER_CONTROL_HPP
 #define _SPEAKER_CONTROL_HPP
 

@@ -1,3 +1,13 @@
+/**
+ * @file polling_function.cpp
+ * @author Khoi Trinh
+ * @brief implementation file for polling function of speaker controller device
+ * @version 0.1
+ * @date 2018-10-10
+ *
+ *
+ */
+
 #include "master_handler.hpp"
 
 #include "device_config.hpp"
