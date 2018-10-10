@@ -62,7 +62,6 @@
  * @brief Max possible volume set by the user
  *
  */
-
 #define VOLUME_UP_LIMIT 100
 /**
  * @brief Min possible volume set by the user
