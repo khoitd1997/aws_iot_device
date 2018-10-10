@@ -6,7 +6,8 @@
 #include "speaker_ctrl_handler.hpp"
 
 /**
- * @brief functions that will be called regularly when the device is just polling
+ * @brief poll the voltage on the potentiometer and change the volume if there is a change in
+ * voltage
  *
  * @param mgCon object representing connection to the internet
  * @param _handlerList the list of handler that user defined

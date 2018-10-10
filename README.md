@@ -6,7 +6,7 @@ This repo contains the device code running mongoose OS connecting to AWS mqtt se
 
 ## How the system works
 
-The system works by having a function handles all the initial request and then forward it to the correct one based on the message types, for Alexa events, the children of the ParentHandler class are used to fulfill them
+The system works by having a general function(handleAllReq in master_handler.cpp) handles all the initial request and then forward it to the correct one based on the message types, for Alexa events, the children of the ParentHandler class are used to fulfill them
 
 All handler are children of the ParentHandler class which declares a few abstract methods that the handler must implment to fit into the system, typically, when a request is passed onto a handler, its job is to act on the request, then compose a message appropriate to its type of namespace and then return the reply, which will be sent by the general handler function to the lambda function on aws cloud throught mqtt
 
@@ -58,12 +58,13 @@ All devices have a docs folder carrying their speciifc docs
 
 - frozen/: json parser provided by Mongoose OS
 - parent_handler/: contain the source files for the parent class that all handlers derived from
-- base_system/: contain the master handler that is the glue for all pieces of the system
+- base_system/: contain the general handler that is the glue for all pieces of the system
 
 #### device specific handler code (like bed_room_light_controller or pc_controller)
 
 - credentials/: folders containing a shell script(named mongoose_info.sh) that carry info like the arch of the mcu as well as its password and aws endpoints
 - fs/: the filesystem folder, containg a dummy index.html file as well as certificates, private, public key, certificate of authorities
+- src/: the program code for implementation of your handler, polling functions as well as device config
 
 Most of the files in the fs/ dir are not on the public repo due to its sensitive nature, but yours should look like this(with file name matching the picture):
 
@@ -121,6 +122,9 @@ nano pc_controller/mos.yml
 # the example devices folder, but mainly you will need to implement how
 # to initialize handler list and how to regsiter the interrupts you need(leave blank if you don't need any)
 nano pc_controller/device_config.hpp
+
+# implement the polling function, this function is called regularly when no major events are happening, if there is no need just leave it empty
+nano pc_controller/polling_function.cpp
 
 # Then start writing your handler classes, all handler classes must derive from the
 # ParentHandler class found in the parent_handler folder in the based_framework folder,

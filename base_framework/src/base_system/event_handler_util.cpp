@@ -121,6 +121,15 @@ HandlerError getCommandInfo(struct mg_str* message, char* commandName, char* nam
   }
 }
 
+/**
+ * @brief Get the Aws Payload json key
+ *
+ * @param message messsage received by mongoose OS from mqtt server
+ * @param awsPayloadFormat the payload format of the specific aws device type such as speaker, power
+ * controller, etc
+ * @param totalArg how many arg to parse in the payload format
+ * @return HandlerError return error code in case that there is not enough elements to parse
+ */
 HandlerError getAwsPayload(const struct mg_str* message,
                            const char*          awsPayloadFormat,
                            const uint8_t&       totalArg,

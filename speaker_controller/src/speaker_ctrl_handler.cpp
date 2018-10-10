@@ -12,6 +12,14 @@
 #include "mgos_gpio.h"
 #include "mgos_mqtt.h"
 
+/**
+ * @brief handler function for when the user turn on/off the physical pot on the speaker
+ * This function will either turn on/off the speaker based on the user interaction with the
+ * physical potentiometer
+ * @param pin the pin that triggered the handler
+ * @param arg pointer to things passed by mongoose OS to the handler, in this case, the pointer to
+ * the speaker handler is registered to be the argument passed
+ */
 void SpeakerCtrlHandler::pwrInputIntHandler(int pin, void* arg) {
   LOG(LL_INFO, ("Spkr button interrupt: %d", pin));
 
@@ -28,6 +36,11 @@ void SpeakerCtrlHandler::pwrInputIntHandler(int pin, void* arg) {
   (void)arg;
 }
 
+/**
+ * @brief Construct a new Speaker Ctrl Handler:: Speaker Ctrl Handler object
+ * create a new spekaer handler, intialize the namespace argument, prepare analog, and interrupt
+ * pins, set speaker to mute
+ */
 SpeakerCtrlHandler::SpeakerCtrlHandler(void)
     : switchIsOn_(true), currentVolume_(0), isMuted_(true), lastKnownPotAdcVal_(0) {
   mgos_adc_enable(SPKR_VOL_LEVEL_INPUT_PIN);
@@ -44,6 +57,18 @@ SpeakerCtrlHandler::SpeakerCtrlHandler(void)
   setMute(isMuted_);
 }
 
+/**
+ * @brief function to handle request passed by aws mqtt
+ * Depending on the reques type, the handler will either mute the device, adjust volume or set new
+ * volume entirely
+ *
+ * @param mgCon mongoose OS connection to the internet
+ * @param message message received by mongoose OS
+ * @param commandName the command extracted from the message
+ * @param response the buffer to write the response to, which will be published to the mqtt response
+ * server
+ * @return HandlerError return errors reported by function inside the handler
+ */
 HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                                struct mg_str*        message,
                                                char*                 commandName,
@@ -119,6 +144,14 @@ HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
   (void)mgCon;
 }
 
+/**
+ * @brief handle preparing report for the speaker handler
+ * used when the handler needs to respond to the , will report whether the speaker is muted and what
+ * the volume is
+ *
+ * @param stateReport the buffer to write the report to
+ * @return HandlerError return problem error
+ */
 HandlerError SpeakerCtrlHandler::handleReport(char* stateReport) {
   return createReport(stateReport,
                       SPKR_CTRL_FMT,
@@ -137,6 +170,15 @@ HandlerError SpeakerCtrlHandler::handleReport(char* stateReport) {
                       isMuted_);
 }
 
+/**
+ * @brief set the volume on the speaker by adjusting the digital pot
+ *
+ * Depending on whether the volume is higher/lower than the current volume, the wiper direction is
+ * adjusted and moved accordingly
+ *
+ * @param targetVolume the volume to reach
+ * @return HandlerError return problem error
+ */
 HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
   const int32_t targetVol =
       targetVolume >= VOLUME_UP_LIMIT
@@ -171,6 +213,14 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief used for mute/unmuting the speaker
+ * mute the speaker by turning off the power, also update pot value to prevent noise from causing
+ * immature volume change
+ *
+ * @param isMuted if true, mute the speaker
+ * @return HandlerError return problem error
+ */
 HandlerError SpeakerCtrlHandler::setMute(const bool& isMuted) {
   (isMuted ? switchPwr(false) : switchPwr(true));
   isMuted_ = isMuted;
@@ -178,16 +228,35 @@ HandlerError SpeakerCtrlHandler::setMute(const bool& isMuted) {
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief change the wiper direction of the digital pot
+ * interact with the DIR pin of the digital pot to change the direction of the wiper
+ *
+ * @param isUp if true, change the direction to moving up the resistance
+ * @return HandlerError return problem error
+ */
 HandlerError SpeakerCtrlHandler::changeWiperDir(const bool& isUp) {
   return write_pin(SPKR_DIR_PIN, (isUp) ? SPKR_PIN_UP_STATE : !SPKR_PIN_UP_STATE);
 }
 
+/**
+ * @brief used for switching on/off the power to the speaker
+ * mainly serve as a utility function used by other functions to switch on/off speaker
+ *
+ * @param isPowerOn turn speaker on if true
+ * @return HandlerError return error problems
+ */
 HandlerError SpeakerCtrlHandler::switchPwr(const bool& isPowerOn) {
   (isPowerOn ? write_pin(SPKR_PWR_PIN, SPKR_PWR_ON_STATE)
              : write_pin(SPKR_PWR_PIN, !SPKR_PWR_ON_STATE));
   return HANDLER_NO_ERR;
 }
 
+/**
+ * @brief called by the main polling function to check and update the pot voltage if necessary
+ * read the adc voltage and if the voltage changes over a certain threshold, which indicates that
+ * the user has moved the pot, then the volume will be adjusted accordingly
+ */
 void SpeakerCtrlHandler::checkPotVoltage(void) {
   int32_t adcReading = mgos_adc_read(SPKR_VOL_LEVEL_INPUT_PIN);
   LOG(LL_INFO, ("Adc reading: %d", adcReading));
@@ -200,6 +269,11 @@ void SpeakerCtrlHandler::checkPotVoltage(void) {
   }
 }
 
+/**
+ * @brief update the value read from the user input potentiometer
+ * Will wait some time to make sure the adc value settle before reading and updating the last known
+ * pot value
+ */
 void SpeakerCtrlHandler::updatePotAdcVal(void) {
   mgos_msleep(20);  // wait for noise to stabilize
   lastKnownPotAdcVal_ = mgos_adc_read(SPKR_VOL_LEVEL_INPUT_PIN);

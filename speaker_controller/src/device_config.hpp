@@ -1,5 +1,5 @@
 /**
- * @brief config file for the pc controller device
+ * @brief config file for the speaker controller device
  *
  * @file device_config.hpp
  * @author Khoi Trinh
@@ -24,9 +24,6 @@
 
 /****************Pinout Config**************************/
 
-/**
- * @brief pins used to control the relay controlling the pc motherboard pins
- */
 #define SPKR_PWR_PIN 14  // control speaker power source
 #define SPKR_PWR_ON_STATE 1
 
@@ -56,7 +53,7 @@
 /****************Device Handler Config*****************/
 
 /**
- * @brief Reigister pc controller interrupt
+ * @brief dummy function, interrupts are registered in the handler constructor for this device
  *
  * Register an interrupt before handling any events, usually you would register interrupt inside the
  * constructor of the handler but this is provided to register interrupt early in the program if
@@ -67,14 +64,19 @@
   } while (0)
 
 /**
- * @brief change this if you use more or less handler
+ * @brief device only needs to handle speaker type interface
  *
  */
 #define TOTAL_HANDLER 1
+
+/**
+ * @brief index of the pointer to the speaker handler
+ *
+ */
 #define SPKR_HANDLER_INDEX 0
 
 /**
- * @brief change this function to customize the list of handler
+ * @brief initialize list of handler
  *
  */
 #define INITIALIZE_HANDLER()                \

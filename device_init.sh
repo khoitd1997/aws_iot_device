@@ -24,6 +24,7 @@ cd ..
 # copying basic files
 cp ${SKELETON_DIR}/fs/index.html ${PROJECT_NAME}/fs/
 cp ${SKELETON_DIR}/src/device_config.hpp ${PROJECT_NAME}/src/
+cp ${SKELETON_DIR}/src/polling_function.cpp ${PROJECT_NAME}/src/polling_function.cpp
 cp ${SKELETON_DIR}/mos.yml ${PROJECT_NAME}/
 mkdir ${PROJECT_NAME}/credentials
 cp sample/mongoose_info.sh ${PROJECT_NAME}/credentials/mongoose_info.sh
