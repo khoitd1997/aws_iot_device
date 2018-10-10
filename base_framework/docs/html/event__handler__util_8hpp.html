@@ -77,11 +77,14 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;mgos.h&quot;</code><br />
 <code>#include &quot;mgos_mqtt.h&quot;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for event_handler_util.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="event__handler__util_8hpp__incl.png" border="0" usemap="#src_2base__system_2event__handler__util_8hpp" alt=""/></div>
+<map name="src_2base__system_2event__handler__util_8hpp" id="src_2base__system_2event__handler__util_8hpp">
+</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -89,10 +92,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="center"><img src="event__handler__util_8hpp__dep__incl.png" border="0" usemap="#src_2base__system_2event__handler__util_8hppdep" alt=""/></div>
 <map name="src_2base__system_2event__handler__util_8hppdep" id="src_2base__system_2event__handler__util_8hppdep">
 <area shape="rect" id="node2" href="event__handler__util_8cpp.html" title="folder carrying utils functions that are helpful either to the master handler or to the child handler..." alt="" coords="5,95,164,136"/>
-<area shape="rect" id="node3" href="master__handler_8hpp.html" title="header file for master handler class " alt="" coords="188,95,355,136"/>
-<area shape="rect" id="node4" href="master__handler_8cpp.html" title="Source files for master handler class. " alt="" coords="261,184,428,225"/>
-<area shape="rect" id="node5" href="parent__handler_8hpp.html" title="contain class declaration for the ParentHandler class " alt="" coords="430,95,566,136"/>
-<area shape="rect" id="node6" href="parent__handler_8cpp.html" title="contain the source files for the ParentHandler class " alt="" coords="478,184,614,225"/>
+<area shape="rect" id="node3" href="master__handler_8hpp.html" title="header file for master handler class " alt="" coords="240,184,407,225"/>
+<area shape="rect" id="node4" href="master__handler_8cpp.html" title="Source files for master handler class. " alt="" coords="179,273,345,315"/>
+<area shape="rect" id="node5" href="parent__handler_8hpp.html" title="contain class declaration for the ParentHandler class " alt="" coords="307,95,443,136"/>
+<area shape="rect" id="node6" href="parent__handler_8cpp.html" title="contain the source files for the ParentHandler class " alt="" coords="431,184,567,225"/>
 </map>
 </div>
 </div>
@@ -126,7 +129,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<b>MQTT_CONFIG_NOT_SET</b>, 
 <b>JSON_UNKNOWN_NAMESPACE</b>, 
 <b>JSON_VPRINTF_ERROR</b>, 
-<b>HANDLER_NULL</b>
+<b>JSON_VSCANF_ERROR</b>, 
+<br />
+&#160;&#160;<b>HANDLER_NULL</b>
 <br />
  }<tr class="memdesc:aa5539431034374b69b96c23bc24b892c"><td class="mdescLeft">&#160;</td><td class="mdescRight">enum defining errors that the system(including master handler and other child handler) may have <br /></td></tr>
 </td></tr>
@@ -137,6 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8dec8bf8ce1c78f3ba7962bcc2d3beca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="event__handler__util_8hpp.html#aa5539431034374b69b96c23bc24b892c">HandlerError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="event__handler__util_8hpp.html#a8dec8bf8ce1c78f3ba7962bcc2d3beca">getCommandInfo</a> (struct mg_str *message, char *commandName, char *nameSpace)</td></tr>
 <tr class="memdesc:a8dec8bf8ce1c78f3ba7962bcc2d3beca"><td class="mdescLeft">&#160;</td><td class="mdescRight">get command name as well as command namespace of messages sent from aws lambda  <a href="#a8dec8bf8ce1c78f3ba7962bcc2d3beca">More...</a><br /></td></tr>
 <tr class="separator:a8dec8bf8ce1c78f3ba7962bcc2d3beca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a205501d003602eb56068aa4f727d42e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="event__handler__util_8hpp.html#aa5539431034374b69b96c23bc24b892c">HandlerError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="event__handler__util_8hpp.html#a205501d003602eb56068aa4f727d42e3">getAwsPayload</a> (const struct mg_str *message, const char *awsPayloadFormat, const uint8_t &amp;totalArg,...)</td></tr>
+<tr class="memdesc:a205501d003602eb56068aa4f727d42e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Aws Payload json key.  <a href="#a205501d003602eb56068aa4f727d42e3">More...</a><br /></td></tr>
+<tr class="separator:a205501d003602eb56068aa4f727d42e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c60e92c35030a72e09682652378a9f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="event__handler__util_8hpp.html#aa5539431034374b69b96c23bc24b892c">HandlerError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="event__handler__util_8hpp.html#a3c60e92c35030a72e09682652378a9f0">write_pin</a> (const uint8_t pinNum, const uint8_t pinState)</td></tr>
 <tr class="memdesc:a3c60e92c35030a72e09682652378a9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">used for writing to a digital pin given its pin number and state  <a href="#a3c60e92c35030a72e09682652378a9f0">More...</a><br /></td></tr>
 <tr class="separator:a3c60e92c35030a72e09682652378a9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,6 +212,57 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>return any errors that are encountered</dd></dl>
 <p>The function stores a list of struct that stores the error code and their corresponding error message, the function searches through the struct to find the correct message </p>
+
+</div>
+</div>
+<a id="a205501d003602eb56068aa4f727d42e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205501d003602eb56068aa4f727d42e3">&#9670;&nbsp;</a></span>getAwsPayload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="event__handler__util_8hpp.html#aa5539431034374b69b96c23bc24b892c">HandlerError</a> getAwsPayload </td>
+          <td>(</td>
+          <td class="paramtype">const struct mg_str *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>awsPayloadFormat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t &amp;&#160;</td>
+          <td class="paramname"><em>totalArg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Aws Payload json key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>messsage received by mongoose OS from mqtt server </td></tr>
+    <tr><td class="paramname">awsPayloadFormat</td><td>the payload format of the specific aws device type such as speaker, power controller, etc </td></tr>
+    <tr><td class="paramname">totalArg</td><td>how many arg to parse in the payload format </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>HandlerError return error code in case that there is not enough elements to parse </dd></dl>
 
 </div>
 </div>

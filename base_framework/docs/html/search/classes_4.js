@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['next_5fdata',['next_data',['../structnext__data.html',1,'']]]
+  ['parenthandler',['ParentHandler',['../classParentHandler.html',1,'']]],
+  ['prettify_5fdata',['prettify_data',['../structprettify__data.html',1,'']]]
 ];

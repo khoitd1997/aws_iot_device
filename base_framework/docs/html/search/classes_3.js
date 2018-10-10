@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['masterawshandler',['MasterAwsHandler',['../classMasterAwsHandler.html',1,'']]]
+  ['next_5fdata',['next_data',['../structnext__data.html',1,'']]]
 ];

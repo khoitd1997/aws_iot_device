@@ -22,6 +22,8 @@ The format specifier to the aws iot reply is stored in the aws_iot_fmt.hpp in th
 
 [Pc Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/pc_controller/docs/html/index.html)
 
+[Speaker Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/speaker_controller/docs/html/index.html)
+
 ## Backend of IoT
 
 This project uses AWS lambda for triaging requests from Alexa, the essential detail of the request is passed onto the correct device thanks to a database corresponding between endpoint ID and the channel that the device pub/sub to
