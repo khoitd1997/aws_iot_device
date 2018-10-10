@@ -10,6 +10,7 @@
 #define _MASTER_HANDLER_HPP
 
 #include "event_handler_util.hpp"
+#include "parent_handler.hpp"
 
 #include "frozen.h"
 #include "mgos.h"
@@ -24,27 +25,12 @@
  */
 #define MAX_RESPONSE_LEN 1500
 
-/**
- * @brief the Master handler class responsible for triaging requests and handle the common
- * functionalities of all requests
- *
- */
-class MasterAwsHandler {
- public:
-  MasterAwsHandler();
-  void handleAwsRequest(struct mg_connection *mgCon, struct mg_str *payload, char *returnMessage);
-  static void handleAllReq(struct mg_connection *mgCon,
-                           int                   eventType,
-                           void *                rawMessage,
-                           void *                user_data);
+void handleAwsRequest(struct mg_connection *mgCon,
+                      struct mg_str *       payload,
+                      char *                jsonBuf,
+                      ParentHandler *       _handlerList[]);
+void handleAllReq(struct mg_connection *mgCon, int eventType, void *rawMessage, void *user_data);
 
-  static const char *getSubTopic(void);
-  static const char *getPubTopic(void);
-
- private:
-  // pub and sub topics
-  static const char *_subTopic;
-  static const char *_pubTopic;
-};
+void handlePolling(struct mg_connection *mgCon, ParentHandler *handlerList[], char *jsonBuf);
 
 #endif

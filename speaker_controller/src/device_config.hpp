@@ -44,8 +44,11 @@
 
 // user input pins
 #define SPKR_VOL_LEVEL_INPUT_PIN 0  // analog input
+#define SPKR_VOL_LEVEL_INPUT_THRESHOLD 15
+#define SPKR_VOL_LEVEL_MAX_COUNT 1024
+
 #define SPKR_PWR_INPUT_PIN 13
-#define SPKR_PWR_INPUT_OFF_STATE 0
+#define SPKR_PWR_INPUT_OFF_STATE 1
 #define SPKR_PWR_INPUT_PIN_DEBOUNCE_MS 50
 
 // TODO: add support for manual button
@@ -53,19 +56,22 @@
 /****************Device Handler Config*****************/
 
 /**
- * @brief change this if you use more or less handler
- *
- */
-#define TOTAL_HANDLER 1
-
-/**
  * @brief Reigister pc controller interrupt
  *
- * Register a button interrupt to actuate on pc's case power button
+ * Register an interrupt before handling any events, usually you would register interrupt inside the
+ * constructor of the handler but this is provided to register interrupt early in the program if
+ * needed
  */
 #define REGISTER_INTERRUPT() \
   do {                       \
   } while (0)
+
+/**
+ * @brief change this if you use more or less handler
+ *
+ */
+#define TOTAL_HANDLER 1
+#define SPKR_HANDLER_INDEX 0
 
 /**
  * @brief change this function to customize the list of handler

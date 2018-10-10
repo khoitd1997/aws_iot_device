@@ -34,11 +34,6 @@
     }                                                  \
   } while (0)
 
-const char *MasterAwsHandler::_subTopic = SUBSCRIBE_TOPIC;
-const char *MasterAwsHandler::_pubTopic = PUBLISH_TOPIC;
-
-MasterAwsHandler::MasterAwsHandler() {}
-
 /**
  * @brief The entry point of all events, when an mcu receives an event, whether it's a request from
  * aws or just a confirmation from the mqtt server, it is triaged here
@@ -49,30 +44,22 @@ MasterAwsHandler::MasterAwsHandler() {}
  * @param user_data user data, this is rarely used and is here to only fulill the prototype request
  * for a handler
  */
-void MasterAwsHandler::handleAllReq(struct mg_connection *mgCon,
-                                    int                   eventType,
-                                    void *                rawMessage,
-                                    void *                user_data) {
+void handleAllReq(struct mg_connection *mgCon, int eventType, void *rawMessage, void *user_data) {
   // extract data from raw message and create buffer for holding replies to the server
   struct mg_mqtt_message *msg                       = (struct mg_mqtt_message *)rawMessage;
   struct mg_str *         payload                   = &msg->payload;
-  char                    jsonBuf[MAX_RESPONSE_LEN] = "";
-  static MasterAwsHandler masterHandler;
+  static char             jsonBuf[MAX_RESPONSE_LEN] = "";
+
+  INITIALIZE_HANDLER()
 
   // start triaging the events
   switch (eventType) {
     case MG_EV_MQTT_CONNACK:
       LOG(LL_INFO, ("CONNACK: %d", msg->connack_ret_code));
-      if (MasterAwsHandler::getSubTopic() == NULL || MasterAwsHandler::getPubTopic() == NULL) {
-        LOG(LL_ERROR, ("Run 'mgos config-set mqtt.sub=... mqtt.pub=...'"));
-        create_error_message(MQTT_CONFIG_NOT_SET, payload, jsonBuf);
-      } else {
-        sub(mgCon, "%s", MasterAwsHandler::getSubTopic());
-      }
+      sub(mgCon, "%s", SUBSCRIBE_TOPIC);
       break;
     case MG_EV_POLL:
-      // this event happens a lot, logging it would cause a lot of garbage in
-      // console
+      handlePolling(mgCon, _handlerList, jsonBuf);
       break;
     case MG_EV_CLOSE:
       LOG(LL_INFO, ("Connection closed"));
@@ -88,7 +75,7 @@ void MasterAwsHandler::handleAllReq(struct mg_connection *mgCon,
     case MG_EV_MQTT_PUBLISH:
 
       mg_mqtt_puback(mgCon, msg->message_id);  // acknowledge the publish from others
-      masterHandler.handleAwsRequest(mgCon, payload, jsonBuf);  // handle aws iot specific request
+      handleAwsRequest(mgCon, payload, jsonBuf, _handlerList);  // handle aws iot specific request
       break;
 
     default:
@@ -96,7 +83,8 @@ void MasterAwsHandler::handleAllReq(struct mg_connection *mgCon,
       create_error_message(MQTT_ERR_UNKNOWN_COMMAND, payload, jsonBuf);
   }
 
-  if (0 != strcmp(jsonBuf, "")) { pub(mgCon, masterHandler.getPubTopic(), "%s", jsonBuf); }
+  if (0 != strcmp(jsonBuf, "")) { pub(mgCon, PUBLISH_TOPIC, "%s", jsonBuf); }
+  jsonBuf[0] = '\0';
 
   (void)user_data;  // used to silence warning
 }
@@ -109,10 +97,10 @@ void MasterAwsHandler::handleAllReq(struct mg_connection *mgCon,
  * @param payload payload of message given to the function by the handleAllReq function
  * @param jsonBuf buffer to store repy to the aws lambda
  */
-void MasterAwsHandler::handleAwsRequest(struct mg_connection *mgCon,
-                                        struct mg_str *       payload,
-                                        char *                jsonBuf) {
-  INITIALIZE_HANDLER()
+void handleAwsRequest(struct mg_connection *mgCon,
+                      struct mg_str *       payload,
+                      char *                jsonBuf,
+                      ParentHandler *       _handlerList[]) {
   for (int loopIndex = 0; loopIndex < TOTAL_HANDLER; ++loopIndex) {
     if (NULL == _handlerList[loopIndex]) {
       create_error_message(HANDLER_NULL, payload, jsonBuf);
@@ -178,17 +166,3 @@ void MasterAwsHandler::handleAwsRequest(struct mg_connection *mgCon,
   if (HANDLER_NO_ERR != handlerError) { create_error_message(handlerError, payload, jsonBuf); }
   (void)mgCon;
 }
-
-/**
- * @brief getter for subscribe topic that the master handler subcribes to get request from
- *
- * @return const char*
- */
-const char *MasterAwsHandler::getSubTopic() { return _subTopic; }
-
-/**
- * @brief getter for publish topic that the master handler publishes to
- *
- * @return const char*
- */
-const char *MasterAwsHandler::getPubTopic() { return _pubTopic; }

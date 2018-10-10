@@ -13,20 +13,25 @@
 #include "mgos_mqtt.h"
 
 void SpeakerCtrlHandler::pwrInputIntHandler(int pin, void* arg) {
-  LOG(LL_INFO, ("Spkr button interrupt"));
+  LOG(LL_INFO, ("Spkr button interrupt: %d", pin));
 
   SpeakerCtrlHandler* speakerCtrl = static_cast<SpeakerCtrlHandler*>(arg);
   if (SPKR_PWR_INPUT_PIN == pin) {
     uint8_t pinState = 0;
+    mgos_msleep(30);  // make sure the pin state finishes transition
     read_pin(SPKR_PWR_INPUT_PIN, &pinState);
-    speakerCtrl->switchPwr(SPKR_PWR_INPUT_OFF_STATE == pinState ? false : true);
+    speakerCtrl->switchIsOn_ = (SPKR_PWR_INPUT_OFF_STATE == pinState) ? false : true;
+    speakerCtrl->setMute(!(speakerCtrl->switchIsOn_));
+    LOG(LL_INFO, ("handling power: %d", pinState));
   }
   (void)pin;
   (void)arg;
 }
 
-SpeakerCtrlHandler::SpeakerCtrlHandler(void) : currentVolume_(0), isMuted_(true) {
+SpeakerCtrlHandler::SpeakerCtrlHandler(void)
+    : switchIsOn_(true), currentVolume_(0), isMuted_(true), lastKnownPotAdcVal_(0) {
   mgos_adc_enable(SPKR_VOL_LEVEL_INPUT_PIN);
+  updatePotAdcVal();
   strcpy(ParentHandler::_nameSpace, "Alexa.Speaker");
 
   // interupt register here to in order to access this object data
@@ -159,6 +164,8 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
     mgos_msleep(SPKR_VOLUME_DELAY_MS);
   }
 
+  // record current adc level so that polling doesn't change the newly set volume
+  updatePotAdcVal();
   currentVolume_ = targetVol;
 
   return HANDLER_NO_ERR;
@@ -167,6 +174,7 @@ HandlerError SpeakerCtrlHandler::setVolume(const int32_t& targetVolume) {
 HandlerError SpeakerCtrlHandler::setMute(const bool& isMuted) {
   (isMuted ? switchPwr(false) : switchPwr(true));
   isMuted_ = isMuted;
+  updatePotAdcVal();
   return HANDLER_NO_ERR;
 }
 
@@ -178,4 +186,21 @@ HandlerError SpeakerCtrlHandler::switchPwr(const bool& isPowerOn) {
   (isPowerOn ? write_pin(SPKR_PWR_PIN, SPKR_PWR_ON_STATE)
              : write_pin(SPKR_PWR_PIN, !SPKR_PWR_ON_STATE));
   return HANDLER_NO_ERR;
+}
+
+void SpeakerCtrlHandler::checkPotVoltage(void) {
+  int32_t adcReading = mgos_adc_read(SPKR_VOL_LEVEL_INPUT_PIN);
+  LOG(LL_INFO, ("Adc reading: %d", adcReading));
+  if (adcReading < 0) {
+    return;  // should be just noise
+  }
+  if (abs(lastKnownPotAdcVal_ - adcReading) >= SPKR_VOL_LEVEL_INPUT_THRESHOLD) {
+    lastKnownPotAdcVal_ = adcReading;
+    if (switchIsOn_) { setVolume((adcReading * VOLUME_UP_LIMIT) / SPKR_VOL_LEVEL_MAX_COUNT); }
+  }
+}
+
+void SpeakerCtrlHandler::updatePotAdcVal(void) {
+  mgos_msleep(20);  // wait for noise to stabilize
+  lastKnownPotAdcVal_ = mgos_adc_read(SPKR_VOL_LEVEL_INPUT_PIN);
 }

@@ -21,13 +21,19 @@ class SpeakerCtrlHandler : public ParentHandler {
 
   static void pwrInputIntHandler(int pin, void* arg);
 
+  void checkPotVoltage(void);
+
  private:
+  void updatePotAdcVal(void);
+
   HandlerError switchPwr(const bool& isPowerOn);
   HandlerError setVolume(const int32_t& targetVolume);
   HandlerError setMute(const bool& isMuted);
   HandlerError changeWiperDir(const bool& isUp);
+  bool         switchIsOn_;
   int32_t      currentVolume_;
   bool         isMuted_;
+  int32_t      lastKnownPotAdcVal_;
 };
 
 #endif
