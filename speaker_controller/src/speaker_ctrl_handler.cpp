@@ -5,7 +5,6 @@
  * @version 0.1
  * @date 2018-10-10
  *
- * @copyright Copyright (c) 2018
  *
  */
 
