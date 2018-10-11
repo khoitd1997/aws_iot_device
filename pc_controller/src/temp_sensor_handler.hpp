@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @brief header file for TempSensorHandler class of the pc controller device
  *
  * @file temp_sensor_handler.hpp
@@ -27,7 +27,7 @@ class TempSensorHandler : public ParentHandler {
   TempSensorHandler(void);
   HandlerError handleRequest(struct mg_connection* mgCon,
                              struct mg_str*        message,
-                             char*                 commandName,
+                             const char*                 commandName,
                              char*                 response);
   HandlerError handleReport(char* stateReport);
 

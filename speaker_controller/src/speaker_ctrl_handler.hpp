@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @file speaker_ctrl_handler.hpp
  * @author Khoi Trinh
  * @brief header file for speaker handler
@@ -22,7 +22,7 @@ class SpeakerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,
                              struct mg_str*        message,
-                             char*                 commandName,
+                             const char*                 commandName,
                              char*                 response);
   HandlerError handleReport(char* stateReport);
   ~SpeakerCtrlHandler(void){};

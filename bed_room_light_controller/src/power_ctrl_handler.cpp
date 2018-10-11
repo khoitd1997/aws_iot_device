@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @brief source files for the power control endpoint handler for the bed room light controller
  *
  * @file power_ctrl_handler.cpp
@@ -45,9 +45,9 @@ PowerCtrlHandler::PowerCtrlHandler(void) {
  * Turn the light on or off based on the command name then make a report of the new state
  */
 HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
-                                             struct mg_str*        message,
-                                             char*                 commandName,
-                                             char*                 response) {
+                                             const struct mg_str*  message,
+                                             const char*           commandName,
+                                             char*                 response) noexcept {
   if (0 != strcmp(commandName, "TurnOff") && (0 != strcmp(commandName, "TurnOn"))) {
     return MQTT_ERR_UNKNOWN_COMMAND;
   }
@@ -89,7 +89,7 @@ HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
  * @brief set the light status variable
  * @param lightStatus the status to set
  */
-void PowerCtrlHandler::setLightStatus(bool lightStatus) {
+void PowerCtrlHandler::setLightStatus(bool lightStatus) noexcept {
   PowerCtrlHandler::_lightIsOn = lightStatus;
 }
 
@@ -98,7 +98,7 @@ void PowerCtrlHandler::setLightStatus(bool lightStatus) {
  * @return true for light on
  * @return false for light off
  */
-bool PowerCtrlHandler::getLightStatus(void) { return PowerCtrlHandler::_lightIsOn; }
+const bool& PowerCtrlHandler::getLightStatus(void) noexcept { return PowerCtrlHandler::_lightIsOn; }
 
 /**
  * @brief write a state report for the powercontroller endpoint to the given buffer
@@ -106,7 +106,7 @@ bool PowerCtrlHandler::getLightStatus(void) { return PowerCtrlHandler::_lightIsO
  * @return HandlerError
  * Will read the last known state of the light and then make a report
  */
-HandlerError PowerCtrlHandler::handleReport(char* stateReport) {
+HandlerError PowerCtrlHandler::handleReport(char* stateReport) noexcept {
   char powerStateStr[5] = "";
   if (true == PowerCtrlHandler::getLightStatus()) {
     strcpy(powerStateStr, "ON");

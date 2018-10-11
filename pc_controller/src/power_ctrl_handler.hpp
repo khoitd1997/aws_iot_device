@@ -42,17 +42,17 @@ class PowerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,
                              struct mg_str*        message,
-                             char*                 commandName,
-                             char*                 response);
-  HandlerError handleReport(char* stateReport);
+                             const char*           commandName,
+                             char*                 response) noexcept;
+  HandlerError handleReport(char* stateReport) noexcept;
   ~PowerCtrlHandler(void){};
   PowerCtrlHandler(void);
-  static void buttonInterruptHandler(int pin, void* arg);
-  static void setPcStatus(bool pcStatus);
-  static bool getPcStatus(void);
+  static void        buttonInterruptHandler(int pin, void* arg);
+  static void        setPcStatus(const bool& pcStatus) noexcept;
+  static const bool& getPcStatus(void) noexcept;
 
  private:
-  static HandlerError actuatePcChange(void);
+  static void actuatePcChange(void) noexcept;
 
   /**
    * @brief state variable keeping track if the pc is on or off

@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @brief TempSensorHandler source files for pc controller
  *
  * @file temp_sensor_handler.cpp
@@ -40,7 +40,7 @@ TempSensorHandler::TempSensorHandler() { strcpy(_nameSpace, "Alexa.TemperatureSe
  */
 HandlerError TempSensorHandler::handleRequest(struct mg_connection* mgCon,
                                               struct mg_str*        message,
-                                              char*                 commandName,
+                                              const char*                 commandName,
                                               char*                 response) {
   (void)message;  // satisfy warning
   (void)mgCon;

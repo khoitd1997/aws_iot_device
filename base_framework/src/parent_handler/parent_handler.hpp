@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @brief contain class declaration for the ParentHandler class
  *
  * @file parent_handler.hpp
@@ -29,7 +29,7 @@ class ParentHandler {
   virtual ~ParentHandler(void) {}
   virtual HandlerError handleRequest(struct mg_connection* mgCon,
                                      struct mg_str*        message,
-                                     char*                 commandName,
+                                     const char*                 commandName,
                                      char*                 response)   = 0;
   virtual HandlerError handleReport(char* stateReport) = 0;
 

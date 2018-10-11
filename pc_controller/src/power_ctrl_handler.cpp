@@ -33,11 +33,10 @@ PowerCtrlHandler::PowerCtrlHandler(void) {
  * the pc to either turn on(if it's off) or vice versa
  * @return HandlerError
  */
-HandlerError PowerCtrlHandler::actuatePcChange(void) {
+void PowerCtrlHandler::actuatePcChange(void) noexcept {
   write_pin(PC_CTRL_PIN, SWITCH_ON_STATE);
   mgos_msleep(SWITCH_DELAY_MS);  // delay to make sure the switch has effect
   write_pin(PC_CTRL_PIN, !SWITCH_ON_STATE);
-  return HANDLER_NO_ERR;
 }
 
 /**
@@ -73,8 +72,8 @@ void PowerCtrlHandler::buttonInterruptHandler(int pin, void* arg) {
  */
 HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                              struct mg_str*        message,
-                                             char*                 commandName,
-                                             char*                 response) {
+                                             const char*           commandName,
+                                             char*                 response) noexcept {
   mgos_gpio_disable_int(PC_CTRL_PIN);
 
   if (0 != strcmp(commandName, "TurnOff") && (0 != strcmp(commandName, "TurnOn"))) {
@@ -97,26 +96,27 @@ HandlerError PowerCtrlHandler::handleRequest(struct mg_connection* mgCon,
     strcpy(powerStateStr, "OFF");
   }
 
-  createReport(response,
-               PWR_CTRL_FMT,
-               PWR_CTRL_TOTAL_ARG,
-               "name",
-               "powerState",
-               "namespace",
-               _nameSpace,
-               "value",
-               powerStateStr);
+  return createReport(response,
+                      PWR_CTRL_FMT,
+                      PWR_CTRL_TOTAL_ARG,
+                      "name",
+                      "powerState",
+                      "namespace",
+                      _nameSpace,
+                      "value",
+                      powerStateStr);
 
   (void)mgCon;
   (void)message;  // satisfy warning
-  return HANDLER_NO_ERR;
 }
 
 /**
  * @brief setter for the pc status variable
  * @param pcStatus the status to change the variable to
  */
-void PowerCtrlHandler::setPcStatus(bool pcStatus) { PowerCtrlHandler::_pcIsOn = pcStatus; }
+void PowerCtrlHandler::setPcStatus(const bool& pcStatus) noexcept {
+  PowerCtrlHandler::_pcIsOn = pcStatus;
+}
 
 /**
  * @brief used to get whether the pc is on or off
@@ -124,7 +124,7 @@ void PowerCtrlHandler::setPcStatus(bool pcStatus) { PowerCtrlHandler::_pcIsOn = 
  * @return false pc is off
  * read the state variable to get the lastknown status of the pc
  */
-bool PowerCtrlHandler::getPcStatus(void) { return PowerCtrlHandler::_pcIsOn; }
+const bool& PowerCtrlHandler::getPcStatus(void) noexcept { return PowerCtrlHandler::_pcIsOn; }
 
 /**
  * @brief handle reports pertaining to power controller endpoint for pc controller
@@ -132,7 +132,7 @@ bool PowerCtrlHandler::getPcStatus(void) { return PowerCtrlHandler::_pcIsOn; }
  * @return HandlerError
  * Will report the current PC is on or off
  */
-HandlerError PowerCtrlHandler::handleReport(char* stateReport) {
+HandlerError PowerCtrlHandler::handleReport(char* stateReport) noexcept {
   mgos_gpio_disable_int(PC_CTRL_PIN);
   char powerStateStr[5] = "";
   if (true == PowerCtrlHandler::getPcStatus()) {

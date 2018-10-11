@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @brief header file for power controller class for bed room light controller
  *
  * @file power_ctrl_handler.hpp
@@ -24,14 +24,14 @@
 class PowerCtrlHandler : public ParentHandler {
  public:
   HandlerError handleRequest(struct mg_connection* mgCon,
-                             struct mg_str*        message,
-                             char*                 commandName,
-                             char*                 response);
-  HandlerError handleReport(char* stateReport);
+                             const struct mg_str*  message,
+                             const char*           commandName,
+                             char*                 response) noexcept;
+  HandlerError handleReport(char* stateReport) noexcept;
   ~PowerCtrlHandler(void){};
   PowerCtrlHandler(void);
-  static void setLightStatus(bool lightStatus);
-  static bool getLightStatus(void);
+  static void        setLightStatus(bool lightStatus) noexcept;
+  static const bool& getLightStatus(void) noexcept;
 
  private:
   /**

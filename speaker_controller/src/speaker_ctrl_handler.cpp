@@ -1,4 +1,4 @@
-/**
+/**commandName
  * @file speaker_ctrl_handler.cpp
  * @author Khoi Trinh
  * @brief implemntation file for speaker handler
@@ -81,7 +81,7 @@ SpeakerCtrlHandler::SpeakerCtrlHandler(void)
  */
 HandlerError SpeakerCtrlHandler::handleRequest(struct mg_connection* mgCon,
                                                struct mg_str*        message,
-                                               char*                 commandName,
+                                               const char*                 commandName,
                                                char*                 response) {
   HandlerError errorCode = HANDLER_NO_ERR;
 
