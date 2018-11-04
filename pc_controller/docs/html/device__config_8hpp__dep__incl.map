@@ -1,5 +1,0 @@
-<map id="src/device_config.hpp" name="src/device_config.hpp">
-<area shape="rect" id="node2" href="$polling__function_8cpp.html" title="dummy file carrying empty polling function since pc controller has no polling need ..." alt="" coords="5,80,164,107"/>
-<area shape="rect" id="node3" href="$power__ctrl__handler_8cpp.html" title="source files for the power controller for the pc controller " alt="" coords="189,80,367,107"/>
-<area shape="rect" id="node4" href="$temp__sensor__handler_8cpp.html" title="TempSensorHandler source files for pc controller. " alt="" coords="392,80,585,107"/>
-</map>
