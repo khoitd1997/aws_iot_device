@@ -15,6 +15,13 @@
  * limitations under the License.
  */
 
+/** @defgroup base Base Framework */
+
+/** @addtogroup base
+ *
+ * @{
+ */
+
 #include "mgos.h"
 
 #include "device_config.hpp"
@@ -31,3 +38,5 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_mqtt_add_global_handler(handleAllReq, NULL);
   return MGOS_APP_INIT_SUCCESS;
 }
+
+/** @} */

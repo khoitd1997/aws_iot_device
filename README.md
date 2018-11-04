@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/aws-iot-device/badge/?version=latest)](https://aws-iot-device.readthedocs.io/en/latest/?badge=latest)
+
 # AWS IoT Device
 
 ## Overview
@@ -16,13 +18,7 @@ The format specifier to the aws iot reply is stored in the aws_iot_fmt.hpp in th
 
 ## Doxygen docs
 
-[Base Framework Code](https://rawgit.com/khoitd1997/aws_iot_device/master/base_framework/docs/html/index.html)
-
-[Bed Room Light Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/bed_room_light_controller/docs/html/index.html)
-
-[Pc Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/pc_controller/docs/html/index.html)
-
-[Speaker Controller](https://rawgit.com/khoitd1997/aws_iot_device/master/speaker_controller/docs/html/index.html)
+[Docs Link](https://aws-iot-device.readthedocs.io/en/latest/)
 
 ## Backend of IoT
 
