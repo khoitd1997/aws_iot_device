@@ -1,3 +1,10 @@
+/** @defgroup base Base Framework */
+
+/** @addtogroup base
+ *
+ * @{
+ */
+
 /*
  * Copyright (c) 2014-2018 Cesanta Software Limited
  * All rights reserved
@@ -13,13 +20,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/** @defgroup base Base Framework */
-
-/** @addtogroup base
- *
- * @{
  */
 
 #include "mgos.h"
