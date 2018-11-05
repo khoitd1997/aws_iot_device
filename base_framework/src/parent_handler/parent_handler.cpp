@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief contain the source files for the ParentHandler class
  *
@@ -73,3 +78,5 @@ bool ParentHandler::canHandleRequest(char* requestNameSpace) {
  * @return char* the namespace that the command support
  */
 char* ParentHandler::getNameSpace(void) { return ParentHandler::_nameSpace; }
+
+/** @} */

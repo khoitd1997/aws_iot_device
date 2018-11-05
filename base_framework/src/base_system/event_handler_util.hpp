@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief header file for event handler utils
  *
@@ -68,3 +73,5 @@ HandlerError printStateReportDelimiter(char* jsonOut);
 HandlerError printStateReportEnd(char* jsonOut);
 
 #endif
+
+/** @} */

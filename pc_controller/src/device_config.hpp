@@ -1,3 +1,8 @@
+/** @addtogroup pc_controller
+ *
+ * @{
+ */
+
 /**
  * @brief config file for the pc controller device
  *
@@ -73,3 +78,5 @@
   static ParentHandler*    _handlerList[TOTAL_HANDLER] = {&pwrController, &tempHandler};
 
 #endif
+
+/** @} */

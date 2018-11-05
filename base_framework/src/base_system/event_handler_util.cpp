@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief folder carrying utils functions that are helpful either to the master handler or to the
  * child handler
@@ -180,3 +185,5 @@ HandlerError printStateReportEnd(char* jsonOut) {
   strcat(jsonOut, "]}");
   return HANDLER_NO_ERR;
 }
+
+/** @} */

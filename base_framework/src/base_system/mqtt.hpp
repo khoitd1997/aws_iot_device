@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief header file for mqtt functionalities
  *
@@ -16,3 +21,5 @@ void sub(struct mg_connection *c, const char *fmt, ...);
 void pub(struct mg_connection *c, const char *pubTopic, const char *fmt, ...);
 
 #endif
+
+/** @} */

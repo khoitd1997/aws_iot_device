@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief Source files for master handler class
  *
@@ -166,3 +171,5 @@ void handleAwsRequest(struct mg_connection *mgCon,
   if (HANDLER_NO_ERR != handlerError) { create_error_message(handlerError, payload, jsonBuf); }
   (void)mgCon;
 }
+
+/** @} */

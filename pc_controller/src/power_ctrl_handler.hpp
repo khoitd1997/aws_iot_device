@@ -1,3 +1,10 @@
+
+
+/** @addtogroup pc_controller
+ *
+ * @{
+ */
+
 /**
  * @brief header file for the power controller class of the pc controller
  *
@@ -61,3 +68,5 @@ class PowerCtrlHandler : public ParentHandler {
 };
 
 #endif
+
+/** @} */

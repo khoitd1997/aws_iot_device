@@ -1,3 +1,8 @@
+/** @addtogroup speaker_controller 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief config file for the speaker controller device
  *
@@ -160,3 +165,5 @@
   static ParentHandler*     _handlerList[TOTAL_HANDLER] = {&spkrController};
 
 #endif
+
+/** @} */

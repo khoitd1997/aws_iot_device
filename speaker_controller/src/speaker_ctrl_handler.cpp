@@ -1,3 +1,10 @@
+/** @defgroup speaker_controller Speaker Controller */
+
+/** @addtogroup speaker_controller
+ *
+ * @{
+ */
+
 /**
  * @file speaker_ctrl_handler.cpp
  * @author Khoi Trinh
@@ -288,3 +295,5 @@ void SpeakerCtrlHandler::updatePotAdcVal(void) {
   mgos_msleep(20);  // wait for noise to stabilize
   lastKnownPotAdcVal_ = mgos_adc_read(SPKR_VOL_LEVEL_INPUT_PIN);
 }
+
+/** @} */

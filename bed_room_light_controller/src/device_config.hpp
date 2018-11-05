@@ -1,3 +1,8 @@
+/** @addtogroup bed_room_light_controller 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief file storing the config for the bed room light controller
  *
@@ -51,3 +56,5 @@
   static ParentHandler*   _handlerList[TOTAL_HANDLER] = {&pwrController};
 
 #endif
+
+/** @} */

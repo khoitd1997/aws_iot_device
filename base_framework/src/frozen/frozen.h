@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /*
  * Copyright (c) 2004-2013 Sergey Lyubka <valenok@gmail.com>
  * Copyright (c) 2018 Cesanta Software Limited
@@ -311,3 +316,6 @@ void *json_next_elem(const char *s, int len, void *handle, const char *path,
 #endif /* __cplusplus */
 
 #endif /* CS_FROZEN_FROZEN_H_ */
+
+
+/** @} */

@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief contain class declaration for the ParentHandler class
  *
@@ -47,3 +52,5 @@ class ParentHandler {
 };
 
 #endif
+
+/** @} */

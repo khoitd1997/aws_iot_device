@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /*
  * Copyright (c) 2004-2013 Sergey Lyubka <valenok@gmail.com>
  * Copyright (c) 2018 Cesanta Software Limited
@@ -1415,3 +1420,6 @@ char *json_asprintf(const char *fmt, ...) {
   va_end(ap);
   return result;
 }
+
+
+/** @} */

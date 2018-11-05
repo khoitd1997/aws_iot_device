@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief header file for master handler class
  *
@@ -34,3 +39,5 @@ void handleAllReq(struct mg_connection *mgCon, int eventType, void *rawMessage, 
 void handlePolling(struct mg_connection *mgCon, ParentHandler *handlerList[], char *jsonBuf);
 
 #endif
+
+/** @} */

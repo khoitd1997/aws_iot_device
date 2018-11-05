@@ -1,3 +1,9 @@
+
+/** @addtogroup pc_controller
+ *
+ * @{
+ */
+
 /**
  * @brief TempSensorHandler source files for pc controller
  *
@@ -78,3 +84,5 @@ HandlerError TempSensorHandler::handleReport(char* stateReport) {
 
   return HANDLER_NO_ERR;
 }
+
+/** @} */

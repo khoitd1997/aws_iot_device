@@ -1,6 +1,6 @@
-/** @defgroup base Base Framework */
+/** @defgroup base_framework Base Framework */
 
-/** @addtogroup base
+/** @addtogroup base_framework
  *
  * @{
  */
@@ -38,5 +38,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_mqtt_add_global_handler(handleAllReq, NULL);
   return MGOS_APP_INIT_SUCCESS;
 }
+
+/** @} */
 
 /** @} */

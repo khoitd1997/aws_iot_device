@@ -18,6 +18,8 @@ The format specifier to the aws iot reply is stored in the aws_iot_fmt.hpp in th
 
 ## Doxygen docs
 
+Doxygen docs is hosted on readthedocs, as such it is Doxygen under the guise of Sphinx, every device and the base framework has its own module(aka Doxygen group), to add more devices to the docs, simply follow the appropriate syntax of doxygen to add a group and then add the directory of that device into the Doxyfile INPUT list
+
 [Docs Link](https://aws-iot-device.readthedocs.io/en/latest/)
 
 ## Backend of IoT
@@ -88,12 +90,6 @@ For example, to flash the connected device with pc_controller code:
 
 ```shell
 ./mongoose_setup.sh pc_controller/
-```
-
-- create_docs.sh: used to create doxygen docs, there is a list of folder that would be visited, add more if you have more devices, you need to have a doxyfile in the folder you want to generate docs for before running this command
-
-```shell
-create_docs.sh # use the Doxyfile in each project folder to generate docs
 ```
 
 ## Implementing a new aws devices

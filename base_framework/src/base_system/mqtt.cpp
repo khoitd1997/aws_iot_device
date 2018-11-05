@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief mqtt wrappers from mongoose, source:
  * https://github.com/cesanta/mongoose-os/blob/master/fw/examples/c_mqtt/src/main.c
@@ -72,3 +77,5 @@ void pub(struct mg_connection *mgConnection, const char *pubTopic, const char *f
                   jsonMessageLength);
   LOG(LL_INFO, ("%s -> %s", pubTopic, msg));
 }
+
+/** @} */

@@ -1,3 +1,8 @@
+/** @addtogroup speaker_controller 
+* 
+* @{ 
+*/ 
+
 /**
  * @file speaker_ctrl_handler.hpp
  * @author Khoi Trinh
@@ -46,3 +51,5 @@ class SpeakerCtrlHandler : public ParentHandler {
 };
 
 #endif
+
+/** @} */

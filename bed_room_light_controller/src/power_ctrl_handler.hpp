@@ -1,3 +1,8 @@
+/** @addtogroup bed_room_light_controller 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief header file for power controller class for bed room light controller
  *
@@ -41,3 +46,5 @@ class PowerCtrlHandler : public ParentHandler {
 };
 
 #endif
+
+/** @} */

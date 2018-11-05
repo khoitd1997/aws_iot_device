@@ -1,3 +1,10 @@
+/** @defgroup bed_room_light_controller Bed Room Light Controller */
+
+/** @addtogroup bed_room_light_controller
+ *
+ * @{
+ */
+
 /**
  * @brief source files for the power control endpoint handler for the bed room light controller
  *
@@ -124,3 +131,5 @@ HandlerError PowerCtrlHandler::handleReport(char* stateReport) {
                       "value",
                       powerStateStr);
 }
+
+/** @} */

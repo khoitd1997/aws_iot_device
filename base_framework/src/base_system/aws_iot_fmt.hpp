@@ -1,3 +1,8 @@
+/** @addtogroup base_framework 
+* 
+* @{ 
+*/ 
+
 /**
  * @brief used for storing aws iot communication format
  *
@@ -45,3 +50,5 @@
 #define TEMP_SENSOR_TOTAL_ARG 9
 
 #endif
+
+/** @} */

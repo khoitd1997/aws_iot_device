@@ -1,3 +1,9 @@
+
+/** @addtogroup pc_controller
+ *
+ * @{
+ */
+
 /**
  * @brief header file for TempSensorHandler class of the pc controller device
  *
@@ -37,3 +43,5 @@ class TempSensorHandler : public ParentHandler {
 };
 
 #endif
+
+/** @} */

@@ -1,3 +1,10 @@
+/** @defgroup pc_controller Pc Controller */
+
+/** @addtogroup pc_controller
+ *
+ * @{
+ */
+
 /**
  * @brief source files for the power controller for the pc controller
  *
@@ -151,3 +158,5 @@ HandlerError PowerCtrlHandler::handleReport(char* stateReport) {
                       "value",
                       powerStateStr);
 }
+
+/** @} */
