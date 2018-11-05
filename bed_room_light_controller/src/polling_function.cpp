@@ -1,3 +1,8 @@
+/** @addtogroup Bed_Room_Light_Controller 
+* 
+* @{ 
+ */ 
+
 /**
  * @file polling_function.cpp
  * @author Khoi Trinh
@@ -27,3 +32,5 @@ void handlePolling(struct mg_connection *mgCon, ParentHandler *handlerList[], ch
   (void)jsonBuf;
   (void)mgCon;
 }
+
+/** @} */
